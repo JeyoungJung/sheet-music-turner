@@ -22,10 +22,10 @@ struct SetlistDetailView: View {
             }
             .listRowInsets(
                 EdgeInsets(
-                    top: DesignTokens.Spacing.md,
-                    leading: DesignTokens.Spacing.md,
-                    bottom: DesignTokens.Spacing.xs,
-                    trailing: DesignTokens.Spacing.md
+                    top: Theme.Spacing.md,
+                    leading: Theme.Spacing.md,
+                    bottom: Theme.Spacing.xs,
+                    trailing: Theme.Spacing.md
                 )
             )
             .listRowSeparator(.hidden)
@@ -36,10 +36,10 @@ struct SetlistDetailView: View {
                     emptyEntriesCard
                         .listRowInsets(
                             EdgeInsets(
-                                top: DesignTokens.Spacing.xs,
-                                leading: DesignTokens.Spacing.md,
-                                bottom: DesignTokens.Spacing.xs,
-                                trailing: DesignTokens.Spacing.md
+                                top: Theme.Spacing.xs,
+                                leading: Theme.Spacing.md,
+                                bottom: Theme.Spacing.xs,
+                                trailing: Theme.Spacing.md
                             )
                         )
                         .listRowSeparator(.hidden)
@@ -49,10 +49,10 @@ struct SetlistDetailView: View {
                         entryRow(entry)
                             .listRowInsets(
                                 EdgeInsets(
-                                    top: DesignTokens.Spacing.xs,
-                                    leading: DesignTokens.Spacing.md,
-                                    bottom: DesignTokens.Spacing.xs,
-                                    trailing: DesignTokens.Spacing.md
+                                    top: Theme.Spacing.xs,
+                                    leading: Theme.Spacing.md,
+                                    bottom: Theme.Spacing.xs,
+                                    trailing: Theme.Spacing.md
                                 )
                             )
                             .listRowSeparator(.hidden)
@@ -71,7 +71,7 @@ struct SetlistDetailView: View {
             } header: {
                 Text("Pieces")
                     .swissCaption()
-                    .padding(.horizontal, DesignTokens.Spacing.md)
+                    .padding(.horizontal, Theme.Spacing.md)
             }
 
             Section {
@@ -79,17 +79,17 @@ struct SetlistDetailView: View {
                     showingDeleteConfirmation = true
                 } label: {
                     Text("Delete Setlist")
-                        .swissBody()
-                        .foregroundColor(DesignTokens.Colors.accent)
+                        .font(Theme.body())
+                        .foregroundColor(Theme.Colors.danger)
                 }
                 .buttonStyle(.plain)
             }
             .listRowInsets(
                 EdgeInsets(
-                    top: DesignTokens.Spacing.md,
-                    leading: DesignTokens.Spacing.md,
-                    bottom: DesignTokens.Spacing.lg,
-                    trailing: DesignTokens.Spacing.md
+                    top: Theme.Spacing.md,
+                    leading: Theme.Spacing.md,
+                    bottom: Theme.Spacing.lg,
+                    trailing: Theme.Spacing.md
                 )
             )
             .listRowSeparator(.hidden)
@@ -97,7 +97,7 @@ struct SetlistDetailView: View {
         }
         .listStyle(.plain)
         .scrollContentBackground(.hidden)
-        .background(DesignTokens.Colors.background)
+        .background(Theme.Colors.canvas)
         .navigationTitle(setlist.name)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -108,14 +108,14 @@ struct SetlistDetailView: View {
                     beginRename()
                 } label: {
                     Image(systemName: "pencil")
-                        .foregroundColor(DesignTokens.Colors.accent)
+                        .foregroundColor(Theme.Colors.gold)
                 }
 
                 Button {
                     showingPiecePicker = true
                 } label: {
                     Image(systemName: "plus")
-                        .foregroundColor(DesignTokens.Colors.accent)
+                        .foregroundColor(Theme.Colors.gold)
                 }
             }
         }
@@ -179,8 +179,8 @@ struct SetlistDetailView: View {
     }
 
     private var setlistSummaryCard: some View {
-        VStack(alignment: .leading, spacing: DesignTokens.Spacing.sm) {
-            VStack(alignment: .leading, spacing: DesignTokens.Spacing.xs) {
+        VStack(alignment: .leading, spacing: Theme.Spacing.sm) {
+            VStack(alignment: .leading, spacing: Theme.Spacing.xs) {
                 Text(setlist.name)
                     .swissHeadline()
 
@@ -193,9 +193,9 @@ struct SetlistDetailView: View {
 
             playButton
         }
-        .padding(DesignTokens.Spacing.md)
+        .padding(Theme.Dimensions.cardPadding)
         .swissCard()
-        .contentShape(Rectangle())
+        .contentShape(RoundedRectangle(cornerRadius: Theme.Dimensions.cardRadius, style: .continuous))
         .onLongPressGesture {
             beginRename()
         }
@@ -221,14 +221,14 @@ struct SetlistDetailView: View {
     }
 
     private var emptyEntriesCard: some View {
-        VStack(alignment: .leading, spacing: DesignTokens.Spacing.xs) {
+        VStack(alignment: .leading, spacing: Theme.Spacing.xs) {
             Text("No Pieces")
                 .swissBody()
 
             Text("Tap + to add scores from your library.")
                 .swissCaption()
         }
-        .padding(DesignTokens.Spacing.sm)
+        .padding(Theme.Dimensions.cardPadding)
         .swissCard()
     }
 
@@ -319,11 +319,11 @@ private struct SetlistActionCard: View {
     let systemImage: String
 
     var body: some View {
-        HStack(alignment: .top, spacing: DesignTokens.Spacing.sm) {
+        HStack(alignment: .top, spacing: Theme.Spacing.sm) {
             Image(systemName: systemImage)
-                .foregroundColor(DesignTokens.Colors.accent)
+                .foregroundColor(Theme.Colors.gold)
 
-            VStack(alignment: .leading, spacing: DesignTokens.Spacing.xs) {
+            VStack(alignment: .leading, spacing: Theme.Spacing.xs) {
                 Text(title)
                     .swissBody()
 
@@ -331,7 +331,7 @@ private struct SetlistActionCard: View {
                     .swissCaption()
             }
         }
-        .padding(DesignTokens.Spacing.sm)
+        .padding(Theme.Dimensions.cardPadding)
         .swissCard()
     }
 }
@@ -341,14 +341,14 @@ private struct SetlistEntryRow: View {
     let libraryItem: LibraryItem
 
     var body: some View {
-        VStack(alignment: .leading, spacing: DesignTokens.Spacing.xs) {
+        VStack(alignment: .leading, spacing: Theme.Spacing.xs) {
             Text(libraryItem.name)
                 .swissBody()
 
             Text("\(libraryItem.pageCount) \(libraryItem.pageCount == 1 ? "page" : "pages") · #\(entry.sortOrder + 1)")
                 .swissCaption()
         }
-        .padding(DesignTokens.Spacing.sm)
+        .padding(Theme.Dimensions.cardPadding)
         .swissCard()
     }
 }
@@ -357,14 +357,14 @@ private struct SetlistMissingEntryRow: View {
     let entry: SetlistEntry
 
     var body: some View {
-        VStack(alignment: .leading, spacing: DesignTokens.Spacing.xs) {
+        VStack(alignment: .leading, spacing: Theme.Spacing.xs) {
             Text("Missing Score")
                 .swissBody()
 
             Text("#\(entry.sortOrder + 1)")
                 .swissCaption()
         }
-        .padding(DesignTokens.Spacing.sm)
+        .padding(Theme.Dimensions.cardPadding)
         .swissCard()
     }
 }

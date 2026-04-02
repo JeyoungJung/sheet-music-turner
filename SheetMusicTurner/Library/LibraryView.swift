@@ -37,7 +37,7 @@ struct LibraryView: View {
               detailView
           }
            .navigationSplitViewStyle(.balanced)
-           .tint(DesignTokens.Colors.accent)
+           .tint(Theme.Colors.gold)
            .fullScreenCover(item: $selectedScoreItem) { item in
                PDFReaderScreen(item: item)
             }
@@ -61,12 +61,12 @@ struct LibraryView: View {
             Label("All Scores", systemImage: "music.note.list")
                 .swissBody()
                 .tag(FolderSelection.allScores)
-                .listRowInsets(EdgeInsets(top: DesignTokens.Spacing.sm, leading: DesignTokens.Spacing.md, bottom: DesignTokens.Spacing.sm, trailing: DesignTokens.Spacing.md))
+                .listRowInsets(EdgeInsets(top: Theme.Spacing.sm, leading: Theme.Spacing.md, bottom: Theme.Spacing.sm, trailing: Theme.Spacing.md))
 
             Label("Unfiled", systemImage: "tray")
                 .swissBody()
                 .tag(FolderSelection.unfiled)
-                .listRowInsets(EdgeInsets(top: DesignTokens.Spacing.sm, leading: DesignTokens.Spacing.md, bottom: DesignTokens.Spacing.sm, trailing: DesignTokens.Spacing.md))
+                .listRowInsets(EdgeInsets(top: Theme.Spacing.sm, leading: Theme.Spacing.md, bottom: Theme.Spacing.sm, trailing: Theme.Spacing.md))
 
             if !folders.isEmpty {
                 Section {
@@ -74,7 +74,7 @@ struct LibraryView: View {
                         Label(folder.name, systemImage: "folder")
                             .swissBody()
                             .tag(FolderSelection.folder(folder))
-                            .listRowInsets(EdgeInsets(top: DesignTokens.Spacing.sm, leading: DesignTokens.Spacing.md, bottom: DesignTokens.Spacing.sm, trailing: DesignTokens.Spacing.md))
+                            .listRowInsets(EdgeInsets(top: Theme.Spacing.sm, leading: Theme.Spacing.md, bottom: Theme.Spacing.sm, trailing: Theme.Spacing.md))
                             .contextMenu {
                                 Button("Rename") {
                                     beginFolderRename(folder)
@@ -88,7 +88,7 @@ struct LibraryView: View {
                 } header: {
                     Text("Folders")
                         .swissCaption()
-                        .padding(.horizontal, DesignTokens.Spacing.md)
+                        .padding(.horizontal, Theme.Spacing.md)
                 }
             }
         }
@@ -101,14 +101,14 @@ struct LibraryView: View {
                     beginFolderCreation()
                 } label: {
                     Image(systemName: "plus.rectangle.on.folder")
-                        .foregroundColor(DesignTokens.Colors.accent)
+                        .foregroundColor(Theme.Colors.gold)
                 }
 
                 Button {
                     showingImporter = true
                 } label: {
                     Image(systemName: "plus")
-                        .foregroundColor(DesignTokens.Colors.accent)
+                        .foregroundColor(Theme.Colors.gold)
                 }
             }
         }
@@ -168,7 +168,7 @@ struct LibraryView: View {
                 pdfGrid(items: items)
             }
         }
-        .background(DesignTokens.Colors.background)
+        .background(Theme.Colors.canvas)
         .sheet(isPresented: $showingFolderPickerSheet, onDismiss: {
             itemPendingMove = nil
         }) {
@@ -224,11 +224,11 @@ struct LibraryView: View {
 
     private func pdfGrid(items: [LibraryItem]) -> some View {
         let columns = [
-            GridItem(.adaptive(minimum: 200, maximum: 280), spacing: DesignTokens.Spacing.md)
+            GridItem(.adaptive(minimum: 200, maximum: 280), spacing: Theme.Spacing.md)
         ]
 
         return ScrollView {
-            LazyVGrid(columns: columns, spacing: DesignTokens.Spacing.md) {
+            LazyVGrid(columns: columns, spacing: Theme.Spacing.md) {
                 ForEach(items) { item in
                     Button {
                         selectedScoreItem = item
@@ -247,7 +247,7 @@ struct LibraryView: View {
                     }
                 }
             }
-            .padding(DesignTokens.Spacing.lg)
+            .padding(Theme.Spacing.lg)
         }
     }
 
@@ -406,35 +406,37 @@ struct PDFItemCard: View {
     let item: LibraryItem
 
     var body: some View {
-        VStack(alignment: .leading, spacing: DesignTokens.Spacing.xs) {
+        VStack(alignment: .leading, spacing: Theme.Dimensions.innerSpacing) {
             ZStack(alignment: .bottom) {
-                Rectangle()
-                    .fill(DesignTokens.Colors.divider)
+                RoundedRectangle(cornerRadius: Theme.Dimensions.cardRadius - 4, style: .continuous)
+                    .fill(Theme.Colors.separator)
                     .aspectRatio(0.77, contentMode: .fit)
 
                 Text(item.name.prefix(1).uppercased())
-                    .font(DesignTokens.Typography.displayLarge)
-                    .foregroundColor(DesignTokens.Colors.secondaryText)
+                    .font(Theme.display())
+                    .foregroundColor(Theme.Colors.textSecondary)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
 
-                Rectangle()
-                    .fill(DesignTokens.Colors.accent)
-                    .frame(height: 2)
+                RoundedRectangle(cornerRadius: 1)
+                    .fill(Theme.Colors.gold)
+                    .frame(height: 3)
+                    .padding(.horizontal, 8)
+                    .padding(.bottom, 8)
             }
 
             Text(item.name)
-                .font(DesignTokens.Typography.body)
-                .foregroundColor(DesignTokens.Colors.primaryText)
+                .font(Theme.body())
+                .foregroundColor(Theme.Colors.textPrimary)
                 .lineLimit(2)
                 .frame(maxWidth: .infinity, alignment: .leading)
 
             Text("\(item.pageCount) pages")
-                .font(DesignTokens.Typography.caption)
-                .foregroundColor(DesignTokens.Colors.secondaryText)
+                .font(Theme.caption())
+                .foregroundColor(Theme.Colors.textSecondary)
                 .textCase(.uppercase)
                 .frame(maxWidth: .infinity, alignment: .leading)
         }
-        .padding(DesignTokens.Spacing.sm)
+        .padding(Theme.Dimensions.cardPadding)
         .swissCard()
     }
 }

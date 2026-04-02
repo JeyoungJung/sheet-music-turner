@@ -24,7 +24,7 @@ struct FolderPickerSheet: View {
             }
             .listStyle(.plain)
             .scrollContentBackground(.hidden)
-            .background(DesignTokens.Colors.background)
+            .background(Theme.Colors.canvas)
             .navigationTitle("Move To")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -40,24 +40,24 @@ struct FolderPickerSheet: View {
     @ViewBuilder
     private func pickerRow(title: String, isSelected: Bool, action: @escaping () -> Void) -> some View {
         Button(action: action) {
-            HStack(spacing: DesignTokens.Spacing.sm) {
+            HStack(spacing: Theme.Spacing.sm) {
                 Text(title)
-                    .font(DesignTokens.Typography.body)
-                    .foregroundColor(DesignTokens.Colors.primaryText)
+                    .font(Theme.body())
+                    .foregroundColor(Theme.Colors.textPrimary)
                     .frame(maxWidth: .infinity, alignment: .leading)
 
                 if isSelected {
                     Image(systemName: "checkmark")
-                        .font(DesignTokens.Typography.caption)
-                        .foregroundColor(DesignTokens.Colors.accent)
+                        .font(Theme.caption())
+                        .foregroundColor(Theme.Colors.gold)
                 }
             }
-            .padding(.vertical, DesignTokens.Spacing.xs)
+            .padding(.vertical, Theme.Spacing.xs)
             .frame(maxWidth: .infinity, alignment: .leading)
         }
         .buttonStyle(.plain)
-        .listRowInsets(EdgeInsets(top: DesignTokens.Spacing.xs, leading: DesignTokens.Spacing.md, bottom: DesignTokens.Spacing.xs, trailing: DesignTokens.Spacing.md))
-        .listRowBackground(DesignTokens.Colors.background)
+        .listRowInsets(EdgeInsets(top: Theme.Spacing.xs, leading: Theme.Spacing.md, bottom: Theme.Spacing.xs, trailing: Theme.Spacing.md))
+        .listRowBackground(Theme.Colors.canvas)
         .listRowSeparator(.hidden)
         .overlay(alignment: .bottom) {
             SwissDivider()

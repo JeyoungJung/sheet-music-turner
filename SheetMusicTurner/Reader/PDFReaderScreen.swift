@@ -67,7 +67,7 @@ struct PDFReaderScreen: View {
         GeometryReader { geometry in
 
             ZStack {
-                DesignTokens.Colors.background
+                Theme.Colors.canvas
                     .ignoresSafeArea()
 
                 configuredPDFReaderView
@@ -145,7 +145,7 @@ struct PDFReaderScreen: View {
             }
         } message: {
             Text(readerAlert?.message ?? "")
-                .font(DesignTokens.Typography.body)
+                .font(Theme.body())
                 .multilineTextAlignment(.leading)
         }
         .navigationBarHidden(true)
@@ -171,7 +171,7 @@ struct PDFReaderScreen: View {
                     case 0: goToPreviousPage()
                     case 2: goToNextPage()
                     default:
-                        withAnimation(DesignTokens.Animation.standard) {
+                        withAnimation(Theme.AnimationTokens.standard) {
                             isFullscreen = false
                         }
                     }
@@ -180,7 +180,7 @@ struct PDFReaderScreen: View {
                     case 0: goToPreviousPage()
                     case 2: goToNextPage()
                     default:
-                        withAnimation(DesignTokens.Animation.standard) {
+                        withAnimation(Theme.AnimationTokens.standard) {
                             showAnnotationControls.toggle()
                         }
                     }
@@ -193,34 +193,33 @@ struct PDFReaderScreen: View {
     private func pageIndicator(isWide: Bool) -> some View {
         VStack(spacing: 0) {
             Rectangle()
-                .fill(Color.black.opacity(0.16))
-                .frame(height: DesignTokens.Layout.hairline)
+                .fill(Theme.Colors.separator.opacity(0.5))
+                .frame(height: Theme.Layout.hairline)
             HStack(spacing: 0) {
                 Spacer()
                 if visibleTotalPages > 0 {
                     Text(pageIndicatorDisplayText(isWide: isWide))
-                        .font(.system(size: 13, weight: .medium, design: .default))
-                        .monospacedDigit()
-                        .foregroundColor(DesignTokens.Colors.primaryText)
+                        .font(Theme.number())
+                        .foregroundColor(Theme.Colors.textPrimary)
                         .tracking(0.5)
-                        .padding(.trailing, DesignTokens.Spacing.md)
+                        .padding(.trailing, Theme.Spacing.md)
                 }
             }
             .frame(maxWidth: .infinity)
             .frame(height: 36)
-            .background(Color("SurfaceSecondary"))
+            .background(Theme.Colors.surface)
             GeometryReader { geometry in
                 ZStack(alignment: .leading) {
                     Rectangle()
-                        .fill(Color.black.opacity(0.08))
+                        .fill(Theme.Colors.separator.opacity(0.3))
                     Rectangle()
-                        .fill(DesignTokens.Colors.accent)
+                        .fill(Theme.Colors.gold)
                         .frame(width: geometry.size.width * pageIndicatorProgress)
                 }
             }
             .frame(height: 2)
         }
-        .background(Color("SurfaceSecondary"))
+        .background(Theme.Colors.surface)
         .padding(.bottom, isAnnotating ? AnnotationToolbar.height : 0)
     }
 
@@ -487,7 +486,7 @@ struct PDFReaderScreen: View {
             }
         }
         .ignoresSafeArea(edges: .bottom)
-        .animation(DesignTokens.Animation.standard, value: isAnnotating)
+        .animation(Theme.AnimationTokens.standard, value: isAnnotating)
     }
 
     private var annotationToggle: some View {
@@ -497,8 +496,8 @@ struct PDFReaderScreen: View {
                     dismiss()
                 } label: {
                     Image(systemName: "xmark")
-                        .font(DesignTokens.Typography.body)
-                        .foregroundStyle(DesignTokens.Colors.secondaryText)
+                        .font(Theme.body())
+                        .foregroundStyle(Theme.Colors.textSecondary)
                         .frame(width: 44, height: 44)
                         .contentShape(Rectangle())
                 }
@@ -509,28 +508,28 @@ struct PDFReaderScreen: View {
                     isAnnotating.toggle()
                 } label: {
                     Image(systemName: isAnnotating ? "pencil" : "pencil.slash")
-                        .foregroundStyle(isAnnotating ? DesignTokens.Colors.accent : DesignTokens.Colors.secondaryText)
-                        .padding(DesignTokens.Spacing.sm)
+                        .foregroundStyle(isAnnotating ? Theme.Colors.gold : Theme.Colors.textSecondary)
+                        .padding(Theme.Spacing.sm)
                 }
 
                 Button {
-                    withAnimation(DesignTokens.Animation.standard) {
+                    withAnimation(Theme.AnimationTokens.standard) {
                         isFullscreen = true
                     }
                 } label: {
                     Image(systemName: "arrow.up.left.and.arrow.down.right")
-                        .font(DesignTokens.Typography.body)
-                        .foregroundStyle(DesignTokens.Colors.secondaryText)
+                        .font(Theme.body())
+                        .foregroundStyle(Theme.Colors.textSecondary)
                         .frame(width: 44, height: 44)
                         .contentShape(Rectangle())
                 }
             }
-            .padding(.horizontal, DesignTokens.Spacing.xs)
-            .padding(.top, DesignTokens.Spacing.xs)
+            .padding(.horizontal, Theme.Spacing.xs)
+            .padding(.top, Theme.Spacing.xs)
             Spacer()
         }
-        .animation(DesignTokens.Animation.standard, value: showAnnotationControls)
-        .animation(DesignTokens.Animation.standard, value: isAnnotating)
+        .animation(Theme.AnimationTokens.standard, value: showAnnotationControls)
+        .animation(Theme.AnimationTokens.standard, value: isAnnotating)
     }
 
     private var pieceNameBar: some View {
@@ -538,11 +537,13 @@ struct PDFReaderScreen: View {
             if let setlistPlayer, let name = setlistPlayer.currentLibraryItem?.name {
                 HStack {
                     Text(name)
-                        .swissCaption()
-                        .foregroundColor(DesignTokens.Colors.secondaryText)
+                        .font(Theme.caption())
+                        .foregroundColor(Theme.Colors.textSecondary)
+                        .textCase(.uppercase)
+                        .kerning(0.3)
                         .lineLimit(1)
-                        .padding(.horizontal, DesignTokens.Spacing.md)
-                        .padding(.top, DesignTokens.Spacing.xs)
+                        .padding(.horizontal, Theme.Spacing.md)
+                        .padding(.top, Theme.Spacing.xs)
                     Spacer()
                 }
             }

@@ -82,7 +82,7 @@ struct AnnotationToolbar: View {
     private let thicknessOptions: [CGFloat] = [1, 3, 6]
 
     var body: some View {
-        HStack(spacing: DesignTokens.Spacing.sm) {
+        HStack(spacing: Theme.Spacing.sm) {
             Spacer(minLength: 0)
             toolSection
             sectionDivider
@@ -91,33 +91,33 @@ struct AnnotationToolbar: View {
             thicknessSection
             Spacer(minLength: 0)
         }
-        .padding(.horizontal, DesignTokens.Spacing.sm)
+        .padding(.horizontal, Theme.Spacing.sm)
         .frame(maxWidth: .infinity)
         .frame(height: Self.height)
-        .background(DesignTokens.Colors.background)
+        .background(Theme.Colors.surface)
         .overlay(alignment: .top) {
             Rectangle()
-                .fill(DesignTokens.Colors.divider)
+                .fill(Theme.Colors.separator)
                 .frame(height: 0.5)
         }
-        .animation(DesignTokens.Animation.standard, value: activeTool)
-        .animation(DesignTokens.Animation.standard, value: activeColor.rawValue)
-        .animation(DesignTokens.Animation.standard, value: activeThickness)
+        .animation(Theme.AnimationTokens.standard, value: activeTool)
+        .animation(Theme.AnimationTokens.standard, value: activeColor.rawValue)
+        .animation(Theme.AnimationTokens.standard, value: activeThickness)
     }
 
     private var toolSection: some View {
-        HStack(spacing: DesignTokens.Spacing.xs) {
+        HStack(spacing: Theme.Spacing.xs) {
             ForEach(AnnotationTool.allCases, id: \.rawValue) { tool in
                 Button {
-                    withAnimation(DesignTokens.Animation.standard) {
+                    withAnimation(Theme.AnimationTokens.standard) {
                         activeTool = tool
                     }
                     onToolChanged(tool)
                 } label: {
                     toolbarButton(isActive: activeTool == tool) {
                         Image(systemName: tool.symbolName)
-                            .font(DesignTokens.Typography.toolbarIcon)
-                            .foregroundStyle(activeTool == tool ? DesignTokens.Colors.primaryText : DesignTokens.Colors.secondaryText)
+                            .font(Theme.title2())
+                            .foregroundStyle(activeTool == tool ? Theme.Colors.textPrimary : Theme.Colors.textSecondary)
                             .frame(width: 24, height: 24)
                     }
                 }
@@ -127,10 +127,10 @@ struct AnnotationToolbar: View {
     }
 
     private var colorSection: some View {
-        HStack(spacing: DesignTokens.Spacing.xs) {
+        HStack(spacing: Theme.Spacing.xs) {
             ForEach(AnnotationToolbarColor.allCases) { color in
                 Button {
-                    withAnimation(DesignTokens.Animation.standard) {
+                    withAnimation(Theme.AnimationTokens.standard) {
                         activeColor = color
                     }
                     onColorChanged(color.colorValue)
@@ -142,11 +142,11 @@ struct AnnotationToolbar: View {
 
                         if activeColor == color {
                             Circle()
-                                .stroke(DesignTokens.Colors.background, lineWidth: 1.5)
+                                .stroke(Theme.Colors.surface, lineWidth: 1.5)
                                 .frame(width: 19, height: 19)
 
                             Circle()
-                                .stroke(DesignTokens.Colors.accent, lineWidth: 2)
+                                .stroke(Theme.Colors.gold, lineWidth: 2)
                                 .frame(width: 28, height: 28)
                         }
                     }
@@ -158,18 +158,18 @@ struct AnnotationToolbar: View {
     }
 
     private var thicknessSection: some View {
-        HStack(spacing: DesignTokens.Spacing.xs) {
+        HStack(spacing: Theme.Spacing.xs) {
             ForEach(thicknessOptions, id: \.self) { thickness in
                 Button {
-                    withAnimation(DesignTokens.Animation.standard) {
+                    withAnimation(Theme.AnimationTokens.standard) {
                         activeThickness = thickness
                     }
                     onThicknessChanged(thickness)
                 } label: {
                     toolbarButton(isActive: activeThickness == thickness) {
                         Text(symbol(for: thickness))
-                            .font(DesignTokens.Typography.toolbarIcon)
-                            .foregroundStyle(activeThickness == thickness ? DesignTokens.Colors.primaryText : DesignTokens.Colors.secondaryText)
+                            .font(Theme.title2())
+                            .foregroundStyle(activeThickness == thickness ? Theme.Colors.textPrimary : Theme.Colors.textSecondary)
                             .frame(width: 24, height: 24)
                     }
                 }
@@ -180,7 +180,7 @@ struct AnnotationToolbar: View {
 
     private var sectionDivider: some View {
         Rectangle()
-            .fill(DesignTokens.Colors.divider)
+            .fill(Theme.Colors.separator)
             .frame(width: 0.5, height: 24)
     }
 
@@ -189,8 +189,8 @@ struct AnnotationToolbar: View {
             Spacer(minLength: 0)
             content()
             Spacer(minLength: 0)
-            Rectangle()
-                .fill(DesignTokens.Colors.accent)
+            RoundedRectangle(cornerRadius: 1)
+                .fill(Theme.Colors.gold)
                 .frame(width: 20, height: 2)
                 .opacity(isActive ? 1 : 0)
         }

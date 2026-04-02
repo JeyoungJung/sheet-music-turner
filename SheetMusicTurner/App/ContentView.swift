@@ -14,6 +14,6 @@ struct ContentView: View {
                     Label("Setlists", systemImage: "list.bullet")
                 }
         }
-        .tint(DesignTokens.Colors.accent)
+        .tint(Theme.Colors.gold)
     }
 }

@@ -21,7 +21,7 @@ struct SetlistView: View {
                     setlistListView
                 }
             }
-            .background(DesignTokens.Colors.background)
+            .background(Theme.Colors.canvas)
             .navigationTitle("Setlists")
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
@@ -30,12 +30,12 @@ struct SetlistView: View {
                         beginSetlistCreation()
                     } label: {
                         Image(systemName: "plus")
-                            .foregroundColor(DesignTokens.Colors.accent)
+                            .foregroundColor(Theme.Colors.gold)
                     }
                 }
             }
         }
-        .tint(DesignTokens.Colors.accent)
+        .tint(Theme.Colors.gold)
         .alert("New Setlist", isPresented: $showingCreateSetlistAlert, actions: {
             TextField("Setlist Name", text: $textFieldValue)
 
@@ -77,10 +77,10 @@ struct SetlistView: View {
                 .buttonStyle(.plain)
                 .listRowInsets(
                     EdgeInsets(
-                        top: DesignTokens.Spacing.xs,
-                        leading: DesignTokens.Spacing.md,
-                        bottom: DesignTokens.Spacing.xs,
-                        trailing: DesignTokens.Spacing.md
+                        top: Theme.Spacing.xs,
+                        leading: Theme.Spacing.md,
+                        bottom: Theme.Spacing.xs,
+                        trailing: Theme.Spacing.md
                     )
                 )
                 .listRowSeparator(.hidden)
@@ -101,7 +101,7 @@ struct SetlistView: View {
         }
         .listStyle(.plain)
         .scrollContentBackground(.hidden)
-        .background(DesignTokens.Colors.background)
+        .background(Theme.Colors.canvas)
     }
 
     private var emptyStateView: some View {
@@ -148,14 +148,14 @@ private struct SetlistRow: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: DesignTokens.Spacing.xs) {
+        VStack(alignment: .leading, spacing: Theme.Spacing.xs) {
             Text(setlist.name)
                 .swissBody()
 
             Text("\(pieceCountText) · \(setlist.dateCreated.formatted(date: .abbreviated, time: .omitted))")
                 .swissCaption()
         }
-        .padding(DesignTokens.Spacing.sm)
+        .padding(Theme.Dimensions.cardPadding)
         .swissCard()
     }
 }

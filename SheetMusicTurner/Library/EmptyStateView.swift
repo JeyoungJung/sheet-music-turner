@@ -9,38 +9,38 @@ struct EmptyStateView: View {
     var body: some View {
         GeometryReader { geometry in
             VStack(alignment: .leading, spacing: 0) {
-                Rectangle()
-                    .fill(DesignTokens.Colors.primaryText)
-                    .frame(width: 40, height: 2)
-                    .padding(.bottom, DesignTokens.Spacing.md)
+                RoundedRectangle(cornerRadius: 1)
+                    .fill(Theme.Colors.gold)
+                    .frame(width: 40, height: 3)
+                    .padding(.bottom, Theme.Spacing.md)
 
                 Text(headline)
-                    .font(DesignTokens.Typography.headline)
-                    .foregroundColor(DesignTokens.Colors.primaryText)
-                    .padding(.bottom, DesignTokens.Spacing.sm)
+                    .font(Theme.title1())
+                    .foregroundColor(Theme.Colors.textPrimary)
+                    .padding(.bottom, Theme.Spacing.sm)
 
                 Text(message)
-                    .font(DesignTokens.Typography.body)
-                    .foregroundColor(DesignTokens.Colors.secondaryText)
+                    .font(Theme.body())
+                    .foregroundColor(Theme.Colors.textSecondary)
 
                 if showImportButton, let onImport {
                     Button(action: onImport) {
                         Text("Import Score")
-                            .font(DesignTokens.Typography.buttonBody)
-                            .foregroundColor(DesignTokens.Colors.accent)
-                            .padding(.horizontal, DesignTokens.Spacing.sm)
-                            .padding(.vertical, DesignTokens.Spacing.xs)
-                            .overlay(
-                                Rectangle()
-                                    .strokeBorder(DesignTokens.Colors.accent, lineWidth: DesignTokens.Layout.hairline)
-                            )
+                            .font(Theme.title3())
+                            .foregroundColor(.white)
+                            .padding(.horizontal, Theme.Spacing.md)
+                            .padding(.vertical, Theme.Spacing.xs + 4)
+                            .background(Theme.Colors.gold)
+                            .clipShape(Capsule())
                     }
                     .buttonStyle(.plain)
-                    .padding(.top, DesignTokens.Spacing.md)
+                    .padding(.top, Theme.Spacing.md)
                 }
             }
+            .padding(Theme.Dimensions.cardPadding)
             .frame(maxWidth: 480, alignment: .leading)
-            .padding(.horizontal, DesignTokens.Spacing.xl)
+            .minimalCard()
+            .padding(.horizontal, Theme.Spacing.xl)
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.top, geometry.size.height * 0.25)
         }

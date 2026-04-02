@@ -1,52 +1,77 @@
 import SwiftUI
 
-// MARK: - Swiss Typography Modifiers
+// MARK: - MinimalCard Component
+
+/// A rounded card container following the CreditTrackerV3 editorial design system.
+/// Surface background, 22pt corner radius, optional subtle separator border.
+struct MinimalCard<Content: View>: View {
+    let showBorder: Bool
+    let content: Content
+
+    init(showBorder: Bool = true, @ViewBuilder content: () -> Content) {
+        self.showBorder = showBorder
+        self.content = content()
+    }
+
+    var body: some View {
+        content
+            .background(Theme.Colors.surface)
+            .clipShape(RoundedRectangle(cornerRadius: Theme.Dimensions.cardRadius, style: .continuous))
+            .overlay(
+                RoundedRectangle(cornerRadius: Theme.Dimensions.cardRadius, style: .continuous)
+                    .strokeBorder(Theme.Colors.separator, lineWidth: showBorder ? Theme.Dimensions.borderWidth : 0)
+            )
+    }
+}
+
+// MARK: - Typography Modifiers
 
 struct SwissHeadlineModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .font(DesignTokens.Typography.headline)
-            .foregroundColor(DesignTokens.Colors.primaryText)
+            .font(Theme.title1())
+            .foregroundColor(Theme.Colors.textPrimary)
     }
 }
 
 struct SwissBodyModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .font(DesignTokens.Typography.body)
-            .foregroundColor(DesignTokens.Colors.primaryText)
-            .lineSpacing(8)
+            .font(Theme.body())
+            .foregroundColor(Theme.Colors.textPrimary)
+            .lineSpacing(4)
     }
 }
 
 struct SwissCaptionModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .font(DesignTokens.Typography.caption)
-            .foregroundColor(DesignTokens.Colors.secondaryText)
+            .font(Theme.caption())
+            .foregroundColor(Theme.Colors.textSecondary)
             .textCase(.uppercase)
-            .kerning(0.5)
+            .kerning(0.3)
     }
 }
 
 struct SwissButtonModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .font(DesignTokens.Typography.buttonBody)
-            .foregroundColor(DesignTokens.Colors.accent)
+            .font(Theme.title3())
+            .foregroundColor(Theme.Colors.gold)
     }
 }
 
-// MARK: - Swiss Layout Modifiers
+// MARK: - Card Modifier
 
 struct SwissCardModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
+            .background(Theme.Colors.surface)
+            .clipShape(RoundedRectangle(cornerRadius: Theme.Dimensions.cardRadius, style: .continuous))
             .overlay(
-                Rectangle()
-                    .strokeBorder(DesignTokens.Colors.divider, lineWidth: DesignTokens.Layout.hairline)
+                RoundedRectangle(cornerRadius: Theme.Dimensions.cardRadius, style: .continuous)
+                    .strokeBorder(Theme.Colors.separator, lineWidth: Theme.Dimensions.borderWidth)
             )
-            .clipShape(Rectangle())
     }
 }
 
@@ -72,15 +97,22 @@ extension View {
     func swissCard() -> some View {
         modifier(SwissCardModifier())
     }
+
+    /// Convenience for wrapping content in a MinimalCard.
+    func minimalCard(showBorder: Bool = true) -> some View {
+        MinimalCard(showBorder: showBorder) {
+            self
+        }
+    }
 }
 
-// MARK: - Swiss Divider
+// MARK: - Divider
 
 struct SwissDivider: View {
     var body: some View {
-        Rectangle()
-            .fill(DesignTokens.Colors.divider)
-            .frame(height: DesignTokens.Layout.hairline)
+        RoundedRectangle(cornerRadius: 0.5)
+            .fill(Theme.Colors.separator)
+            .frame(height: Theme.Layout.hairline)
             .frame(maxWidth: .infinity)
     }
 }

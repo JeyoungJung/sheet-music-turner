@@ -32,6 +32,11 @@
 		E4A1B2C3D4E5F60718293A4B /* SheetMusicTurner/Library/FileStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B8C7D6E5F40123456789AB /* SheetMusicTurner/Library/FileStore.swift */; };
 		F37780D601584D8A8465F1DA /* SheetMusicTurner/Data/ModelContainer+Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97254023F37780D601584D8A /* SheetMusicTurner/Data/ModelContainer+Config.swift */; };
 		F5B6C7D8E9F0011223344556 /* SheetMusicTurner/Library/PDFImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C7D6E5F40123456789ABCD /* SheetMusicTurner/Library/PDFImporter.swift */; };
+		AA1F2A3B4C5D6E7F8A9B0C1D /* Inter-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA1F2A3B4C5D6E7F8A9B0C10 /* Inter-Regular.ttf */; };
+		AA1F2A3B4C5D6E7F8A9B0C2D /* Inter-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA1F2A3B4C5D6E7F8A9B0C20 /* Inter-Medium.ttf */; };
+		AA1F2A3B4C5D6E7F8A9B0C3D /* Inter-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA1F2A3B4C5D6E7F8A9B0C30 /* Inter-SemiBold.ttf */; };
+		AA1F2A3B4C5D6E7F8A9B0C4D /* Inter-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA1F2A3B4C5D6E7F8A9B0C40 /* Inter-Bold.ttf */; };
+		AA1F2A3B4C5D6E7F8A9B0C5D /* Inter-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA1F2A3B4C5D6E7F8A9B0C50 /* Inter-Light.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +67,11 @@
 		E1A2B3C4D5E6F708192A3B55 /* SheetMusicTurner/Reader/AnnotationToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetMusicTurner/Reader/AnnotationToolbar.swift; sourceTree = SOURCE_ROOT; };
 		E1A2B3C4D5E6F708192A3B56 /* SheetMusicTurner/Data/AnnotationStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetMusicTurner/Data/AnnotationStore.swift; sourceTree = SOURCE_ROOT; };
 		F08DE67307DB4A89BCCD7946 /* SheetMusicTurner/App/ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetMusicTurner/App/ContentView.swift; sourceTree = SOURCE_ROOT; };
+		AA1F2A3B4C5D6E7F8A9B0C10 /* Inter-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SheetMusicTurner/Fonts/Inter-Regular.ttf"; sourceTree = SOURCE_ROOT; };
+		AA1F2A3B4C5D6E7F8A9B0C20 /* Inter-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SheetMusicTurner/Fonts/Inter-Medium.ttf"; sourceTree = SOURCE_ROOT; };
+		AA1F2A3B4C5D6E7F8A9B0C30 /* Inter-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SheetMusicTurner/Fonts/Inter-SemiBold.ttf"; sourceTree = SOURCE_ROOT; };
+		AA1F2A3B4C5D6E7F8A9B0C40 /* Inter-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SheetMusicTurner/Fonts/Inter-Bold.ttf"; sourceTree = SOURCE_ROOT; };
+		AA1F2A3B4C5D6E7F8A9B0C50 /* Inter-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SheetMusicTurner/Fonts/Inter-Light.ttf"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +172,7 @@
 				B1CF47424AEE4EA7A48F5752 /* App */,
 				8AD0085E446246638129C3EE /* Design */,
 				FDAD5C415DC84AE28C0D11B5 /* Data */,
+				AA1F2A3B4C5D6E7F00000001 /* Fonts */,
 				A11C698B74224EB4A0FC1ACC /* Library */,
 				70433BD67CB848B593EFBE5C /* Reader */,
 				B67057C81B2243329C5F1D1D /* Setlist */,
@@ -178,6 +189,18 @@
 				E1A2B3C4D5E6F708192A3B56 /* SheetMusicTurner/Data/AnnotationStore.swift */,
 			);
 			name = Data;
+			sourceTree = SOURCE_ROOT;
+		};
+		AA1F2A3B4C5D6E7F00000001 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				AA1F2A3B4C5D6E7F8A9B0C10 /* Inter-Regular.ttf */,
+				AA1F2A3B4C5D6E7F8A9B0C20 /* Inter-Medium.ttf */,
+				AA1F2A3B4C5D6E7F8A9B0C30 /* Inter-SemiBold.ttf */,
+				AA1F2A3B4C5D6E7F8A9B0C40 /* Inter-Bold.ttf */,
+				AA1F2A3B4C5D6E7F8A9B0C50 /* Inter-Light.ttf */,
+			);
+			name = Fonts;
 			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
@@ -238,6 +261,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				286AA60775514AE3B35CA1DE /* SheetMusicTurner/Assets.xcassets in Resources */,
+				AA1F2A3B4C5D6E7F8A9B0C1D /* Inter-Regular.ttf in Resources */,
+				AA1F2A3B4C5D6E7F8A9B0C2D /* Inter-Medium.ttf in Resources */,
+				AA1F2A3B4C5D6E7F8A9B0C3D /* Inter-SemiBold.ttf in Resources */,
+				AA1F2A3B4C5D6E7F8A9B0C4D /* Inter-Bold.ttf in Resources */,
+				AA1F2A3B4C5D6E7F8A9B0C5D /* Inter-Light.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

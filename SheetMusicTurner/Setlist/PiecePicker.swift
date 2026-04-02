@@ -26,7 +26,7 @@ struct PiecePicker: View {
                     pickerListView
                 }
             }
-            .background(DesignTokens.Colors.background)
+            .background(Theme.Colors.canvas)
             .navigationTitle("Add Pieces")
             .navigationBarTitleDisplayMode(.inline)
             .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
@@ -42,7 +42,7 @@ struct PiecePicker: View {
                         dismiss()
                     }
                     .disabled(selectedIDs.isEmpty)
-                    .foregroundColor(selectedIDs.isEmpty ? DesignTokens.Colors.secondaryText : DesignTokens.Colors.accent)
+                    .foregroundColor(selectedIDs.isEmpty ? Theme.Colors.textSecondary : Theme.Colors.gold)
                 }
             }
         }
@@ -71,10 +71,10 @@ struct PiecePicker: View {
                 .buttonStyle(.plain)
                 .listRowInsets(
                     EdgeInsets(
-                        top: DesignTokens.Spacing.xs,
-                        leading: DesignTokens.Spacing.md,
-                        bottom: DesignTokens.Spacing.xs,
-                        trailing: DesignTokens.Spacing.md
+                        top: Theme.Spacing.xs,
+                        leading: Theme.Spacing.md,
+                        bottom: Theme.Spacing.xs,
+                        trailing: Theme.Spacing.md
                     )
                 )
                 .listRowSeparator(.hidden)
@@ -83,7 +83,7 @@ struct PiecePicker: View {
         }
         .listStyle(.plain)
         .scrollContentBackground(.hidden)
-        .background(DesignTokens.Colors.background)
+        .background(Theme.Colors.canvas)
     }
 
     private var emptyStateView: some View {
@@ -122,11 +122,11 @@ private struct PiecePickerRow: View {
     let alreadyAdded: Bool
 
     var body: some View {
-        HStack(spacing: DesignTokens.Spacing.sm) {
-            VStack(alignment: .leading, spacing: DesignTokens.Spacing.xs) {
+        HStack(spacing: Theme.Spacing.sm) {
+            VStack(alignment: .leading, spacing: Theme.Spacing.xs) {
                 Text(item.name)
                     .swissBody()
-                    .foregroundColor(alreadyAdded ? DesignTokens.Colors.secondaryText : DesignTokens.Colors.primaryText)
+                    .foregroundColor(alreadyAdded ? Theme.Colors.textSecondary : Theme.Colors.textPrimary)
 
                 Text("\(item.pageCount) \(item.pageCount == 1 ? "page" : "pages")")
                     .swissCaption()
@@ -135,16 +135,16 @@ private struct PiecePickerRow: View {
 
             if alreadyAdded {
                 Image(systemName: "checkmark")
-                    .foregroundColor(DesignTokens.Colors.secondaryText)
+                    .foregroundColor(Theme.Colors.textSecondary)
             } else if isSelected {
                 Image(systemName: "checkmark.circle.fill")
-                    .foregroundColor(DesignTokens.Colors.accent)
+                    .foregroundColor(Theme.Colors.gold)
             } else {
                 Image(systemName: "circle")
-                    .foregroundColor(DesignTokens.Colors.secondaryText)
+                    .foregroundColor(Theme.Colors.textSecondary)
             }
         }
-        .padding(DesignTokens.Spacing.sm)
+        .padding(Theme.Dimensions.cardPadding)
         .swissCard()
     }
 }

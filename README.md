@@ -86,8 +86,9 @@ Annotations use a fixed canonical coordinate space based on screen bounds. When 
 
 ## Design
 
-Swiss editorial style:
-- **Typography**: SF Pro, flush-left
-- **Grid**: 8pt spacing
-- **Color**: Black, white, one accent (#FF3B30)
-- **No**: shadows, gradients, blur, corner radius > 4pt, spring animations
+Editorial design system (adapted from CreditTrackerV3):
+- **Typography**: Inter, flush-left
+- **Colors**: Adaptive light/dark, gold accent (#C8A55A / #D4B56A)
+- **Cards**: 22pt corner radius, surface background, subtle separator border
+- **Motion**: Smooth spring animations, staggered entrances
+- **Spacing**: Generous whitespace, 20pt screen padding
