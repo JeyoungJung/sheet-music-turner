@@ -1,0 +1,30 @@
+# Xcode
+build/
+DerivedData/
+*.xcuserdata
+*.xcworkspace
+xcuserdata/
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+*.xccheckout
+*.moved-aside
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Build artifacts
+build_output.txt
+
+# Scripts used during development
+patch_pbxproj.rb
+update_pbxproj.py
+
+# Ruff cache
+.ruff_cache/
+
+# Sisyphus plans
+.sisyphus/

@@ -1,0 +1,422 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 60;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1B11C698B74224EB4A0FC1BB /* SheetMusicTurner/Library/LibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A11C698B74224EB4A0FC1BB /* SheetMusicTurner/Library/LibraryView.swift */; };
+		FB1B2C3D4E5F6A7B8C9D0E1F /* SheetMusicTurner/Library/EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1B2C3D4E5F6A7B8C9D0E1F /* SheetMusicTurner/Library/EmptyStateView.swift */; };
+		286AA60775514AE3B35CA1DE /* SheetMusicTurner/Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C2280EBE55D42ABBCE1B4CC /* SheetMusicTurner/Assets.xcassets */; };
+		4297AB84B3CF44DAB23FFCBB /* SheetMusicTurner/App/SheetMusicTurnerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDF41BA8F69412D9BA187D0 /* SheetMusicTurner/App/SheetMusicTurnerApp.swift */; };
+		8E1A2B3C4D5E6F708192A3B4 /* SheetMusicTurner/Setlist/SetlistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A2B3C4D5E6F708192A3B4 /* SheetMusicTurner/Setlist/SetlistView.swift */; };
+		8E1A2B3C4D5E6F708192A3B5 /* SheetMusicTurner/Setlist/SetlistDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A2B3C4D5E6F708192A3B5 /* SheetMusicTurner/Setlist/SetlistDetailView.swift */; };
+		8E1A2B3C4D5E6F708192A3B6 /* SheetMusicTurner/Setlist/PiecePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A2B3C4D5E6F708192A3B6 /* SheetMusicTurner/Setlist/PiecePicker.swift */; };
+		8E1A2B3C4D5E6F708192A3B7 /* SheetMusicTurner/Setlist/SetlistPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A2B3C4D5E6F708192A3B7 /* SheetMusicTurner/Setlist/SetlistPlayer.swift */; };
+		A2B3C4D5E6F708192A3B4C5D /* SheetMusicTurner/Library/FolderPickerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B3C4D5E6F708192A3B4C5E /* SheetMusicTurner/Library/FolderPickerSheet.swift */; };
+		C1D2E3F4A5B6C1D2E3F4A5B6 /* SheetMusicTurner/Design/DesignTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6A1B2C3D4E5F6 /* SheetMusicTurner/Design/DesignTokens.swift */; };
+		CC6DDA1E0DC44BCC8FCF41B3 /* SheetMusicTurner/Data/Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B0119CDCC6DDA1E0DC44BCC /* SheetMusicTurner/Data/Models.swift */; };
+		D1E2F3A4B5C6D1E2F3A4B5C6 /* SheetMusicTurner/Design/SwissModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C2D3E4F5A6B1C2D3E4F5A6 /* SheetMusicTurner/Design/SwissModifiers.swift */; };
+		D5EA792E4CAD40A8A1765EFF /* SheetMusicTurner/App/ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08DE67307DB4A89BCCD7946 /* SheetMusicTurner/App/ContentView.swift */; };
+		E1A2B3C4D5E6F708192A3B4C /* SheetMusicTurner/Reader/PDFViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A2B3C4D5E6F708192A3B4D /* SheetMusicTurner/Reader/PDFViewCoordinator.swift */; };
+		E1A2B3C4D5E6F708192A3B4E /* SheetMusicTurner/Reader/PDFReaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A2B3C4D5E6F708192A3B4F /* SheetMusicTurner/Reader/PDFReaderView.swift */; };
+		E1A2B3C4D5E6F708192A3B50 /* SheetMusicTurner/Reader/PDFReaderScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A2B3C4D5E6F708192A3B51 /* SheetMusicTurner/Reader/PDFReaderScreen.swift */; };
+		E1A2B3C4D5E6F708192A3B54 /* SheetMusicTurner/Reader/AnnotationToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A2B3C4D5E6F708192A3B55 /* SheetMusicTurner/Reader/AnnotationToolbar.swift */; };
+		F1A2B3C4D5E6F708192A3B60 /* SheetMusicTurner/Reader/PDFPageRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A2B3C4D5E6F708192A3B61 /* SheetMusicTurner/Reader/PDFPageRenderer.swift */; };
+		F1A2B3C4D5E6F708192A3B62 /* SheetMusicTurner/Reader/PageImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A2B3C4D5E6F708192A3B63 /* SheetMusicTurner/Reader/PageImageCache.swift */; };
+		F1A2B3C4D5E6F708192A3B64 /* SheetMusicTurner/Reader/ImagePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A2B3C4D5E6F708192A3B65 /* SheetMusicTurner/Reader/ImagePageView.swift */; };
+		F1A2B3C4D5E6F708192A3B66 /* SheetMusicTurner/Reader/PagedImageViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A2B3C4D5E6F708192A3B67 /* SheetMusicTurner/Reader/PagedImageViewer.swift */; };
+		E1A2B3C4D5E6F708192A3B57 /* SheetMusicTurner/Data/AnnotationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A2B3C4D5E6F708192A3B56 /* SheetMusicTurner/Data/AnnotationStore.swift */; };
+		E4A1B2C3D4E5F60718293A4B /* SheetMusicTurner/Library/FileStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B8C7D6E5F40123456789AB /* SheetMusicTurner/Library/FileStore.swift */; };
+		F37780D601584D8A8465F1DA /* SheetMusicTurner/Data/ModelContainer+Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97254023F37780D601584D8A /* SheetMusicTurner/Data/ModelContainer+Config.swift */; };
+		F5B6C7D8E9F0011223344556 /* SheetMusicTurner/Library/PDFImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C7D6E5F40123456789ABCD /* SheetMusicTurner/Library/PDFImporter.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1A11C698B74224EB4A0FC1BB /* SheetMusicTurner/Library/LibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetMusicTurner/Library/LibraryView.swift; sourceTree = SOURCE_ROOT; };
+		FA1B2C3D4E5F6A7B8C9D0E1F /* SheetMusicTurner/Library/EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetMusicTurner/Library/EmptyStateView.swift; sourceTree = SOURCE_ROOT; };
+		5C2280EBE55D42ABBCE1B4CC /* SheetMusicTurner/Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = SheetMusicTurner/Assets.xcassets; sourceTree = SOURCE_ROOT; };
+		6B0119CDCC6DDA1E0DC44BCC /* SheetMusicTurner/Data/Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetMusicTurner/Data/Models.swift; sourceTree = SOURCE_ROOT; };
+		97254023F37780D601584D8A /* SheetMusicTurner/Data/ModelContainer+Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SheetMusicTurner/Data/ModelContainer+Config.swift"; sourceTree = SOURCE_ROOT; };
+		9F1A2B3C4D5E6F708192A3B4 /* SheetMusicTurner/Setlist/SetlistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetMusicTurner/Setlist/SetlistView.swift; sourceTree = SOURCE_ROOT; };
+		9F1A2B3C4D5E6F708192A3B5 /* SheetMusicTurner/Setlist/SetlistDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetMusicTurner/Setlist/SetlistDetailView.swift; sourceTree = SOURCE_ROOT; };
+		9F1A2B3C4D5E6F708192A3B6 /* SheetMusicTurner/Setlist/PiecePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetMusicTurner/Setlist/PiecePicker.swift; sourceTree = SOURCE_ROOT; };
+		9F1A2B3C4D5E6F708192A3B7 /* SheetMusicTurner/Setlist/SetlistPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetMusicTurner/Setlist/SetlistPlayer.swift; sourceTree = SOURCE_ROOT; };
+		A1B2C3D4E5F6A1B2C3D4E5F6 /* SheetMusicTurner/Design/DesignTokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetMusicTurner/Design/DesignTokens.swift; sourceTree = SOURCE_ROOT; };
+		A2B3C4D5E6F708192A3B4C5E /* SheetMusicTurner/Library/FolderPickerSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetMusicTurner/Library/FolderPickerSheet.swift; sourceTree = SOURCE_ROOT; };
+		A9B8C7D6E5F40123456789AB /* SheetMusicTurner/Library/FileStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetMusicTurner/Library/FileStore.swift; sourceTree = SOURCE_ROOT; };
+		B1C2D3E4F5A6B1C2D3E4F5A6 /* SheetMusicTurner/Design/SwissModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetMusicTurner/Design/SwissModifiers.swift; sourceTree = SOURCE_ROOT; };
+		B8C7D6E5F40123456789ABCD /* SheetMusicTurner/Library/PDFImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetMusicTurner/Library/PDFImporter.swift; sourceTree = SOURCE_ROOT; };
+		CEDF41BA8F69412D9BA187D0 /* SheetMusicTurner/App/SheetMusicTurnerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetMusicTurner/App/SheetMusicTurnerApp.swift; sourceTree = SOURCE_ROOT; };
+		CFF76A19E74246CB87C587AE /* SheetMusicTurner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SheetMusicTurner.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D58B8DE795F04585BA242204 /* SheetMusicTurner/Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = SheetMusicTurner/Info.plist; sourceTree = SOURCE_ROOT; };
+		E1A2B3C4D5E6F708192A3B4D /* SheetMusicTurner/Reader/PDFViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetMusicTurner/Reader/PDFViewCoordinator.swift; sourceTree = SOURCE_ROOT; };
+		E1A2B3C4D5E6F708192A3B4F /* SheetMusicTurner/Reader/PDFReaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetMusicTurner/Reader/PDFReaderView.swift; sourceTree = SOURCE_ROOT; };
+		E1A2B3C4D5E6F708192A3B51 /* SheetMusicTurner/Reader/PDFReaderScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetMusicTurner/Reader/PDFReaderScreen.swift; sourceTree = SOURCE_ROOT; };
+		F1A2B3C4D5E6F708192A3B61 /* SheetMusicTurner/Reader/PDFPageRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetMusicTurner/Reader/PDFPageRenderer.swift; sourceTree = SOURCE_ROOT; };
+		F1A2B3C4D5E6F708192A3B63 /* SheetMusicTurner/Reader/PageImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetMusicTurner/Reader/PageImageCache.swift; sourceTree = SOURCE_ROOT; };
+		F1A2B3C4D5E6F708192A3B65 /* SheetMusicTurner/Reader/ImagePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetMusicTurner/Reader/ImagePageView.swift; sourceTree = SOURCE_ROOT; };
+		F1A2B3C4D5E6F708192A3B67 /* SheetMusicTurner/Reader/PagedImageViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetMusicTurner/Reader/PagedImageViewer.swift; sourceTree = SOURCE_ROOT; };
+		E1A2B3C4D5E6F708192A3B55 /* SheetMusicTurner/Reader/AnnotationToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetMusicTurner/Reader/AnnotationToolbar.swift; sourceTree = SOURCE_ROOT; };
+		E1A2B3C4D5E6F708192A3B56 /* SheetMusicTurner/Data/AnnotationStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetMusicTurner/Data/AnnotationStore.swift; sourceTree = SOURCE_ROOT; };
+		F08DE67307DB4A89BCCD7946 /* SheetMusicTurner/App/ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetMusicTurner/App/ContentView.swift; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		540CE07AB0D6424394A7C73A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		303FAF073CD84C13910B4168 = {
+			isa = PBXGroup;
+			children = (
+				D54D427141714B2398122A87 /* SheetMusicTurner */,
+				677C954AB7FE4EEEA5E472C0 /* Products */,
+				3754912C2F740B5B0072FC42 /* Recovered References */,
+			);
+			sourceTree = "<group>";
+		};
+		3754912C2F740B5B0072FC42 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				CEDF41BA8F69412D9BA187D0 /* SheetMusicTurner/App/SheetMusicTurnerApp.swift */,
+				F08DE67307DB4A89BCCD7946 /* SheetMusicTurner/App/ContentView.swift */,
+				5C2280EBE55D42ABBCE1B4CC /* SheetMusicTurner/Assets.xcassets */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		677C954AB7FE4EEEA5E472C0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CFF76A19E74246CB87C587AE /* SheetMusicTurner.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		70433BD67CB848B593EFBE5C /* Reader */ = {
+			isa = PBXGroup;
+			children = (
+				E1A2B3C4D5E6F708192A3B4D /* SheetMusicTurner/Reader/PDFViewCoordinator.swift */,
+				E1A2B3C4D5E6F708192A3B4F /* SheetMusicTurner/Reader/PDFReaderView.swift */,
+				E1A2B3C4D5E6F708192A3B51 /* SheetMusicTurner/Reader/PDFReaderScreen.swift */,
+				E1A2B3C4D5E6F708192A3B55 /* SheetMusicTurner/Reader/AnnotationToolbar.swift */,
+				F1A2B3C4D5E6F708192A3B61 /* SheetMusicTurner/Reader/PDFPageRenderer.swift */,
+				F1A2B3C4D5E6F708192A3B63 /* SheetMusicTurner/Reader/PageImageCache.swift */,
+				F1A2B3C4D5E6F708192A3B65 /* SheetMusicTurner/Reader/ImagePageView.swift */,
+				F1A2B3C4D5E6F708192A3B67 /* SheetMusicTurner/Reader/PagedImageViewer.swift */,
+			);
+			name = Reader;
+			sourceTree = SOURCE_ROOT;
+		};
+		8AD0085E446246638129C3EE /* Design */ = {
+			isa = PBXGroup;
+			children = (
+				A1B2C3D4E5F6A1B2C3D4E5F6 /* SheetMusicTurner/Design/DesignTokens.swift */,
+				B1C2D3E4F5A6B1C2D3E4F5A6 /* SheetMusicTurner/Design/SwissModifiers.swift */,
+			);
+			name = Design;
+			sourceTree = SOURCE_ROOT;
+		};
+		A11C698B74224EB4A0FC1ACC /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				A9B8C7D6E5F40123456789AB /* SheetMusicTurner/Library/FileStore.swift */,
+				B8C7D6E5F40123456789ABCD /* SheetMusicTurner/Library/PDFImporter.swift */,
+				A2B3C4D5E6F708192A3B4C5E /* SheetMusicTurner/Library/FolderPickerSheet.swift */,
+				1A11C698B74224EB4A0FC1BB /* SheetMusicTurner/Library/LibraryView.swift */,
+				FA1B2C3D4E5F6A7B8C9D0E1F /* SheetMusicTurner/Library/EmptyStateView.swift */,
+			);
+			name = Library;
+			sourceTree = SOURCE_ROOT;
+		};
+		B1CF47424AEE4EA7A48F5752 /* App */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = App;
+			sourceTree = SOURCE_ROOT;
+		};
+		B67057C81B2243329C5F1D1D /* Setlist */ = {
+			isa = PBXGroup;
+			children = (
+				9F1A2B3C4D5E6F708192A3B4 /* SheetMusicTurner/Setlist/SetlistView.swift */,
+				9F1A2B3C4D5E6F708192A3B5 /* SheetMusicTurner/Setlist/SetlistDetailView.swift */,
+				9F1A2B3C4D5E6F708192A3B6 /* SheetMusicTurner/Setlist/PiecePicker.swift */,
+				9F1A2B3C4D5E6F708192A3B7 /* SheetMusicTurner/Setlist/SetlistPlayer.swift */,
+			);
+			name = Setlist;
+			sourceTree = SOURCE_ROOT;
+		};
+		D54D427141714B2398122A87 /* SheetMusicTurner */ = {
+			isa = PBXGroup;
+			children = (
+				B1CF47424AEE4EA7A48F5752 /* App */,
+				8AD0085E446246638129C3EE /* Design */,
+				FDAD5C415DC84AE28C0D11B5 /* Data */,
+				A11C698B74224EB4A0FC1ACC /* Library */,
+				70433BD67CB848B593EFBE5C /* Reader */,
+				B67057C81B2243329C5F1D1D /* Setlist */,
+				D58B8DE795F04585BA242204 /* SheetMusicTurner/Info.plist */,
+			);
+			name = SheetMusicTurner;
+			sourceTree = SOURCE_ROOT;
+		};
+		FDAD5C415DC84AE28C0D11B5 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				6B0119CDCC6DDA1E0DC44BCC /* SheetMusicTurner/Data/Models.swift */,
+				97254023F37780D601584D8A /* SheetMusicTurner/Data/ModelContainer+Config.swift */,
+				E1A2B3C4D5E6F708192A3B56 /* SheetMusicTurner/Data/AnnotationStore.swift */,
+			);
+			name = Data;
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		348FA3EBB71C48EB97504784 /* SheetMusicTurner */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 787A209294BD4F3E90FB5960 /* Build configuration list for PBXNativeTarget "SheetMusicTurner" */;
+			buildPhases = (
+				DB72B9FDE5D946328D869771 /* Sources */,
+				540CE07AB0D6424394A7C73A /* Frameworks */,
+				660D60741285439097EB0DA9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SheetMusicTurner;
+			productName = SheetMusicTurner;
+			productReference = CFF76A19E74246CB87C587AE /* SheetMusicTurner.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		929AE4F0D0BF4399874B229D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1540;
+				LastUpgradeCheck = 1540;
+				TargetAttributes = {
+					348FA3EBB71C48EB97504784 = {
+						CreatedOnToolsVersion = 15.4;
+					};
+				};
+			};
+			buildConfigurationList = 3CCB4488CA9E4DDEACA0F42B /* Build configuration list for PBXProject "SheetMusicTurner" */;
+			compatibilityVersion = "Xcode 15.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 303FAF073CD84C13910B4168;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				348FA3EBB71C48EB97504784 /* SheetMusicTurner */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		660D60741285439097EB0DA9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				286AA60775514AE3B35CA1DE /* SheetMusicTurner/Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DB72B9FDE5D946328D869771 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B11C698B74224EB4A0FC1BB /* SheetMusicTurner/Library/LibraryView.swift in Sources */,
+				FB1B2C3D4E5F6A7B8C9D0E1F /* SheetMusicTurner/Library/EmptyStateView.swift in Sources */,
+				4297AB84B3CF44DAB23FFCBB /* SheetMusicTurner/App/SheetMusicTurnerApp.swift in Sources */,
+				D5EA792E4CAD40A8A1765EFF /* SheetMusicTurner/App/ContentView.swift in Sources */,
+				CC6DDA1E0DC44BCC8FCF41B3 /* SheetMusicTurner/Data/Models.swift in Sources */,
+				F37780D601584D8A8465F1DA /* SheetMusicTurner/Data/ModelContainer+Config.swift in Sources */,
+				E1A2B3C4D5E6F708192A3B57 /* SheetMusicTurner/Data/AnnotationStore.swift in Sources */,
+				E4A1B2C3D4E5F60718293A4B /* SheetMusicTurner/Library/FileStore.swift in Sources */,
+				F5B6C7D8E9F0011223344556 /* SheetMusicTurner/Library/PDFImporter.swift in Sources */,
+				A2B3C4D5E6F708192A3B4C5D /* SheetMusicTurner/Library/FolderPickerSheet.swift in Sources */,
+				C1D2E3F4A5B6C1D2E3F4A5B6 /* SheetMusicTurner/Design/DesignTokens.swift in Sources */,
+				D1E2F3A4B5C6D1E2F3A4B5C6 /* SheetMusicTurner/Design/SwissModifiers.swift in Sources */,
+				E1A2B3C4D5E6F708192A3B4C /* SheetMusicTurner/Reader/PDFViewCoordinator.swift in Sources */,
+				E1A2B3C4D5E6F708192A3B4E /* SheetMusicTurner/Reader/PDFReaderView.swift in Sources */,
+				E1A2B3C4D5E6F708192A3B50 /* SheetMusicTurner/Reader/PDFReaderScreen.swift in Sources */,
+				E1A2B3C4D5E6F708192A3B54 /* SheetMusicTurner/Reader/AnnotationToolbar.swift in Sources */,
+				F1A2B3C4D5E6F708192A3B60 /* SheetMusicTurner/Reader/PDFPageRenderer.swift in Sources */,
+				F1A2B3C4D5E6F708192A3B62 /* SheetMusicTurner/Reader/PageImageCache.swift in Sources */,
+				F1A2B3C4D5E6F708192A3B64 /* SheetMusicTurner/Reader/ImagePageView.swift in Sources */,
+				F1A2B3C4D5E6F708192A3B66 /* SheetMusicTurner/Reader/PagedImageViewer.swift in Sources */,
+				8E1A2B3C4D5E6F708192A3B4 /* SheetMusicTurner/Setlist/SetlistView.swift in Sources */,
+				8E1A2B3C4D5E6F708192A3B5 /* SheetMusicTurner/Setlist/SetlistDetailView.swift in Sources */,
+				8E1A2B3C4D5E6F708192A3B6 /* SheetMusicTurner/Setlist/PiecePicker.swift in Sources */,
+				8E1A2B3C4D5E6F708192A3B7 /* SheetMusicTurner/Setlist/SetlistPlayer.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1E8E27F17CC4401DA411B24A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_ASSET_SYMBOLS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				INFOPLIST_FILE = SheetMusicTurner/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.SheetMusicTurner;
+				PRODUCT_NAME = SheetMusicTurner;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Release;
+		};
+		2B5CB8A0FDAB44FC87E3C33C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = XY2YLU52MW;
+				INFOPLIST_FILE = SheetMusicTurner/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.SheetMusicTurner;
+				PRODUCT_NAME = SheetMusicTurner;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Release;
+		};
+		35AB184A5A654510BBBE8918 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_ASSET_SYMBOLS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				INFOPLIST_FILE = SheetMusicTurner/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.SheetMusicTurner;
+				PRODUCT_NAME = SheetMusicTurner;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		C51661184C614AFEA0EAEF86 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = XY2YLU52MW;
+				INFOPLIST_FILE = SheetMusicTurner/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.SheetMusicTurner;
+				PRODUCT_NAME = SheetMusicTurner;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3CCB4488CA9E4DDEACA0F42B /* Build configuration list for PBXProject "SheetMusicTurner" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				35AB184A5A654510BBBE8918 /* Debug */,
+				1E8E27F17CC4401DA411B24A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		787A209294BD4F3E90FB5960 /* Build configuration list for PBXNativeTarget "SheetMusicTurner" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C51661184C614AFEA0EAEF86 /* Debug */,
+				2B5CB8A0FDAB44FC87E3C33C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 929AE4F0D0BF4399874B229D /* Project object */;
+}
