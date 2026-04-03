@@ -9,31 +9,52 @@ struct SetlistView: View {
 
     @State private var showingCreateSetlistAlert = false
     @State private var showingDeleteSetlistConfirmation = false
+    @State private var showingRenameSetlistAlert = false
     @State private var textFieldValue = ""
     @State private var setlistPendingDeletion: Setlist?
+    @State private var setlistPendingRename: Setlist?
+
+    private let columns = [
+        GridItem(.adaptive(minimum: 200, maximum: 280), spacing: Theme.Spacing.md)
+    ]
 
     var body: some View {
         NavigationStack {
-            Group {
-                if setlists.isEmpty {
-                    emptyStateView
-                } else {
-                    setlistListView
-                }
-            }
-            .background(Theme.Colors.canvas)
-            .navigationTitle("Setlists")
-            .navigationBarTitleDisplayMode(.large)
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
+            VStack(spacing: 0) {
+                // Inline header row matching Library tab style
+                HStack {
+                    Button {
+                        // No sidebar to toggle on Setlists tab — placeholder for visual symmetry
+                    } label: {
+                        Image(systemName: "sidebar.left")
+                            .font(.system(size: 22, weight: .medium))
+                            .foregroundColor(Theme.Colors.gold)
+                    }
+                    .hidden()
+
+                    Spacer()
+
                     Button {
                         beginSetlistCreation()
                     } label: {
                         Image(systemName: "plus")
+                            .font(.system(size: 22, weight: .medium))
                             .foregroundColor(Theme.Colors.gold)
                     }
                 }
+                .frame(height: 44)
+                .padding(.horizontal, Theme.Spacing.lg)
+                .padding(.top, 7)
+                .padding(.bottom, 4)
+
+                if setlists.isEmpty {
+                    emptyStateView
+                } else {
+                    setlistGrid
+                }
             }
+            .background(Theme.Colors.canvas)
+            .toolbar(.hidden, for: .navigationBar)
         }
         .tint(Theme.Colors.gold)
         .alert("New Setlist", isPresented: $showingCreateSetlistAlert, actions: {
@@ -49,6 +70,21 @@ struct SetlistView: View {
             }
         }, message: {
             Text("Enter a name for the new setlist.")
+        })
+        .alert("Rename Setlist", isPresented: $showingRenameSetlistAlert, actions: {
+            TextField("Setlist Name", text: $textFieldValue)
+
+            Button("Save") {
+                renameSetlist()
+            }
+            .keyboardShortcut(.defaultAction)
+
+            Button("Cancel", role: .cancel) {
+                setlistPendingRename = nil
+                textFieldValue = ""
+            }
+        }, message: {
+            Text("Update the setlist name.")
         })
         .confirmationDialog(
             "Delete Setlist?",
@@ -68,40 +104,31 @@ struct SetlistView: View {
         }
     }
 
-    private var setlistListView: some View {
-        List {
-            ForEach(setlists) { setlist in
-                NavigationLink(destination: SetlistDetailView(setlist: setlist)) {
-                    SetlistRow(setlist: setlist)
-                }
-                .buttonStyle(.plain)
-                .listRowInsets(
-                    EdgeInsets(
-                        top: Theme.Spacing.xs,
-                        leading: Theme.Spacing.md,
-                        bottom: Theme.Spacing.xs,
-                        trailing: Theme.Spacing.md
-                    )
-                )
-                .listRowSeparator(.hidden)
-                .listRowBackground(Color.clear)
-                .contextMenu {
-                    Button("Delete", role: .destructive) {
-                        confirmDeletion(for: setlist)
+    private var setlistGrid: some View {
+        ScrollView {
+            LazyVGrid(columns: columns, spacing: Theme.Spacing.md) {
+                ForEach(setlists) { setlist in
+                    NavigationLink(destination: SetlistDetailView(setlist: setlist)) {
+                        SetlistCard(setlist: setlist)
                     }
-                }
-                .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                    Button(role: .destructive) {
-                        confirmDeletion(for: setlist)
-                    } label: {
-                        Label("Delete", systemImage: "trash")
+                    .buttonStyle(.plain)
+                    .contextMenu {
+                        Button {
+                            beginSetlistRename(setlist)
+                        } label: {
+                            Label("Rename", systemImage: "pencil")
+                        }
+
+                        Button(role: .destructive) {
+                            confirmDeletion(for: setlist)
+                        } label: {
+                            Label("Delete", systemImage: "trash")
+                        }
                     }
                 }
             }
+            .padding(Theme.Spacing.lg)
         }
-        .listStyle(.plain)
-        .scrollContentBackground(.hidden)
-        .background(Theme.Colors.canvas)
     }
 
     private var emptyStateView: some View {
@@ -128,6 +155,21 @@ struct SetlistView: View {
         textFieldValue = ""
     }
 
+    private func beginSetlistRename(_ setlist: Setlist) {
+        setlistPendingRename = setlist
+        textFieldValue = setlist.name
+        showingRenameSetlistAlert = true
+    }
+
+    private func renameSetlist() {
+        let name = trimmedTextFieldValue
+        guard !name.isEmpty, let setlist = setlistPendingRename else { return }
+        setlist.name = name
+        setlist.dateModified = Date()
+        setlistPendingRename = nil
+        textFieldValue = ""
+    }
+
     private func confirmDeletion(for setlist: Setlist) {
         setlistPendingDeletion = setlist
         showingDeleteSetlistConfirmation = true
@@ -139,8 +181,24 @@ struct SetlistView: View {
     }
 }
 
-private struct SetlistRow: View {
+// MARK: - Setlist Card
+
+struct SetlistCard: View {
     let setlist: Setlist
+    @State private var thumbnail: UIImage?
+
+    private var sortedEntries: [SetlistEntry] {
+        setlist.entries.sorted { lhs, rhs in
+            if lhs.sortOrder == rhs.sortOrder {
+                return lhs.id.uuidString < rhs.id.uuidString
+            }
+            return lhs.sortOrder < rhs.sortOrder
+        }
+    }
+
+    private var firstLibraryItem: LibraryItem? {
+        sortedEntries.first(where: { $0.libraryItem != nil })?.libraryItem
+    }
 
     private var pieceCountText: String {
         let count = setlist.entries.count
@@ -148,14 +206,67 @@ private struct SetlistRow: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: Theme.Spacing.xs) {
-            Text(setlist.name)
-                .swissBody()
+        VStack(alignment: .leading, spacing: Theme.Dimensions.innerSpacing) {
+            ZStack(alignment: .bottom) {
+                RoundedRectangle(cornerRadius: Theme.Dimensions.cardRadius - 4, style: .continuous)
+                    .fill(Theme.Colors.separator)
+                    .aspectRatio(0.77, contentMode: .fit)
+                    .overlay {
+                        if let thumbnail {
+                            Image(uiImage: thumbnail)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .clipShape(RoundedRectangle(cornerRadius: Theme.Dimensions.cardRadius - 4, style: .continuous))
+                        } else {
+                            VStack(spacing: Theme.Spacing.xs) {
+                                Image(systemName: "music.note.list")
+                                    .font(.system(size: 36))
+                                    .foregroundColor(Theme.Colors.textSecondary)
+                            }
+                        }
+                    }
 
-            Text("\(pieceCountText) · \(setlist.dateCreated.formatted(date: .abbreviated, time: .omitted))")
-                .swissCaption()
+                RoundedRectangle(cornerRadius: 1)
+                    .fill(Theme.Colors.gold)
+                    .frame(height: 3)
+                    .padding(.horizontal, 8)
+                    .padding(.bottom, 8)
+            }
+            .task(id: firstLibraryItem?.id) {
+                await loadThumbnail()
+            }
+
+            Text(setlist.name)
+                .font(Theme.body())
+                .foregroundColor(Theme.Colors.textPrimary)
+                .lineLimit(2)
+                .frame(maxWidth: .infinity, minHeight: 38, alignment: .topLeading)
+
+            Text(pieceCountText)
+                .font(Theme.caption())
+                .foregroundColor(Theme.Colors.textSecondary)
+                .textCase(.uppercase)
+                .frame(maxWidth: .infinity, alignment: .leading)
         }
         .padding(Theme.Dimensions.cardPadding)
         .swissCard()
+    }
+
+    private func loadThumbnail() async {
+        guard let item = firstLibraryItem else {
+            thumbnail = nil
+            return
+        }
+        let url = item.fileURL
+        let image = await Task.detached(priority: .utility) {
+            PageImageRenderer.renderPageSync(
+                documentURL: url,
+                pageIndex: 0,
+                targetSize: CGSize(width: 280, height: 364)
+            )
+        }.value
+        if let image {
+            thumbnail = image
+        }
     }
 }

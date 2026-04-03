@@ -514,6 +514,8 @@ struct PDFReaderScreen: View {
 
                 Button {
                     withAnimation(Theme.AnimationTokens.standard) {
+                        isAnnotating = false
+                        showAnnotationControls = false
                         isFullscreen = true
                     }
                 } label: {

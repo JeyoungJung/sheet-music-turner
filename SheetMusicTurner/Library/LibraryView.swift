@@ -27,80 +27,69 @@ struct LibraryView: View {
      @State private var itemPendingDeletion: LibraryItem?
       @State private var searchText: String = ""
        @State private var selectedScoreItem: LibraryItem?
+       @State private var showingRenameScoreAlert = false
+       @State private var itemPendingRename: LibraryItem?
+       @State private var isSelecting = false
+       @State private var selectedItems: Set<UUID> = []
+        @State private var showingBatchMoveSheet = false
+    @State private var showSidebar: Bool = true
 
-     @Environment(\.modelContext) private var modelContext
+       @Environment(\.modelContext) private var modelContext
 
-     var body: some View {
-         NavigationSplitView {
-              sidebarView
-          } detail: {
-              detailView
-          }
-           .navigationSplitViewStyle(.balanced)
+       private let sidebarWidth: CGFloat = 320
+
+       var body: some View {
+           HStack(spacing: 0) {
+               if showSidebar {
+                   sidebarView
+                       .frame(width: sidebarWidth)
+                       .transition(.move(edge: .leading))
+
+                   Divider()
+               }
+
+               detailView
+                   .frame(maxWidth: .infinity)
+           }
            .tint(Theme.Colors.gold)
            .fullScreenCover(item: $selectedScoreItem) { item in
                PDFReaderScreen(item: item)
-            }
-           .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
-         .fileImporter(
-             isPresented: $showingImporter,
-              allowedContentTypes: [.pdf, .image],
-              allowsMultipleSelection: false
-         ) { result in
-             handleImportResult(result)
-         }
-         .alert("Import Failed", isPresented: $showingImportError, actions: {
-             Button("OK", role: .cancel) {}
-         }, message: {
-             Text(importError ?? "Unknown error")
-         })
-     }
+           }
+           .fileImporter(
+               isPresented: $showingImporter,
+               allowedContentTypes: [.pdf, .image],
+               allowsMultipleSelection: false
+           ) { result in
+               handleImportResult(result)
+           }
+           .alert("Import Failed", isPresented: $showingImportError, actions: {
+               Button("OK", role: .cancel) {}
+           }, message: {
+               Text(importError ?? "Unknown error")
+           })
+       }
 
     private var sidebarView: some View {
-        List(selection: $selectedFolder) {
-            Label("All Scores", systemImage: "music.note.list")
-                .swissBody()
-                .tag(FolderSelection.allScores)
-                .listRowInsets(EdgeInsets(top: Theme.Spacing.sm, leading: Theme.Spacing.md, bottom: Theme.Spacing.sm, trailing: Theme.Spacing.md))
-
-            Label("Unfiled", systemImage: "tray")
-                .swissBody()
-                .tag(FolderSelection.unfiled)
-                .listRowInsets(EdgeInsets(top: Theme.Spacing.sm, leading: Theme.Spacing.md, bottom: Theme.Spacing.sm, trailing: Theme.Spacing.md))
-
-            if !folders.isEmpty {
-                Section {
-                    ForEach(folders) { folder in
-                        Label(folder.name, systemImage: "folder")
-                            .swissBody()
-                            .tag(FolderSelection.folder(folder))
-                            .listRowInsets(EdgeInsets(top: Theme.Spacing.sm, leading: Theme.Spacing.md, bottom: Theme.Spacing.sm, trailing: Theme.Spacing.md))
-                            .contextMenu {
-                                Button("Rename") {
-                                    beginFolderRename(folder)
-                                }
-
-                                Button("Delete", role: .destructive) {
-                                    confirmFolderDeletion(folder)
-                                }
-                            }
+        VStack(spacing: 0) {
+            // Custom header — sidebar toggle at absolute top-left
+            HStack {
+                Button {
+                    withAnimation(Theme.Motion.smoothSpring) {
+                        showSidebar = false
                     }
-                } header: {
-                    Text("Folders")
-                        .swissCaption()
-                        .padding(.horizontal, Theme.Spacing.md)
+                } label: {
+                    Image(systemName: "sidebar.left")
+                        .font(.title3)
+                        .foregroundColor(Theme.Colors.gold)
                 }
-            }
-        }
-        .listStyle(.sidebar)
-        .navigationTitle("Library")
-        .navigationBarTitleDisplayMode(.large)
-        .toolbar {
-            ToolbarItemGroup(placement: .topBarTrailing) {
+
+                Spacer()
+
                 Button {
                     beginFolderCreation()
                 } label: {
                     Image(systemName: "plus.rectangle.on.folder")
+                        .font(.title3)
                         .foregroundColor(Theme.Colors.gold)
                 }
 
@@ -108,10 +97,85 @@ struct LibraryView: View {
                     showingImporter = true
                 } label: {
                     Image(systemName: "plus")
+                        .font(.title3)
                         .foregroundColor(Theme.Colors.gold)
                 }
             }
+            .padding(.horizontal, Theme.Spacing.sm)
+            .padding(.top, Theme.Spacing.sm)
+            .padding(.bottom, Theme.Spacing.sm)
+
+            // Large title
+            Text("Library")
+                .font(.largeTitle.bold())
+                .foregroundColor(Theme.Colors.textPrimary)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, Theme.Spacing.sm)
+                .padding(.bottom, Theme.Spacing.sm)
+
+            // Search bar
+            HStack(spacing: Theme.Spacing.xs) {
+                Image(systemName: "magnifyingglass")
+                    .foregroundColor(Theme.Colors.textSecondary)
+                    .font(Theme.caption())
+                TextField("Search", text: $searchText)
+                    .font(Theme.body())
+                    .foregroundColor(Theme.Colors.textPrimary)
+                if !searchText.isEmpty {
+                    Button {
+                        searchText = ""
+                    } label: {
+                        Image(systemName: "xmark.circle.fill")
+                            .foregroundColor(Theme.Colors.textSecondary)
+                            .font(Theme.caption())
+                    }
+                }
+            }
+            .padding(.horizontal, Theme.Spacing.sm)
+            .padding(.vertical, Theme.Spacing.xs)
+            .background(Theme.Colors.separator.opacity(0.5))
+            .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+            .padding(.horizontal, Theme.Spacing.sm)
+            .padding(.bottom, Theme.Spacing.md)
+
+            List(selection: $selectedFolder) {
+                Label("All Scores", systemImage: "music.note.list")
+                    .swissBody()
+                    .tag(FolderSelection.allScores)
+                    .listRowInsets(EdgeInsets(top: Theme.Spacing.sm, leading: Theme.Spacing.md, bottom: Theme.Spacing.sm, trailing: Theme.Spacing.md))
+
+                Label("Unfiled", systemImage: "tray")
+                    .swissBody()
+                    .tag(FolderSelection.unfiled)
+                    .listRowInsets(EdgeInsets(top: Theme.Spacing.sm, leading: Theme.Spacing.md, bottom: Theme.Spacing.sm, trailing: Theme.Spacing.md))
+
+                if !folders.isEmpty {
+                    Section {
+                        ForEach(folders) { folder in
+                            Label(folder.name, systemImage: "folder")
+                                .swissBody()
+                                .tag(FolderSelection.folder(folder))
+                                .listRowInsets(EdgeInsets(top: Theme.Spacing.sm, leading: Theme.Spacing.md, bottom: Theme.Spacing.sm, trailing: Theme.Spacing.md))
+                                .contextMenu {
+                                    Button("Rename") {
+                                        beginFolderRename(folder)
+                                    }
+
+                                    Button("Delete", role: .destructive) {
+                                        confirmFolderDeletion(folder)
+                                    }
+                                }
+                        }
+                    } header: {
+                        Text("Folders")
+                            .swissCaption()
+                            .padding(.horizontal, Theme.Spacing.md)
+                    }
+                }
+            }
+            .listStyle(.sidebar)
         }
+        .background(Theme.Colors.surface)
         .alert("New Folder", isPresented: $showingCreateFolderAlert, actions: {
             TextField("Folder Name", text: $textFieldValue)
 
@@ -160,7 +224,10 @@ struct LibraryView: View {
     }
 
     private var detailView: some View {
-        Group {
+        VStack(spacing: 0) {
+            // Always-visible header row
+            detailHeaderRow
+
             let items = filteredItems
             if items.isEmpty {
                 emptyStateView
@@ -181,6 +248,14 @@ struct LibraryView: View {
                 }
             }
         }
+        .sheet(isPresented: $showingBatchMoveSheet) {
+            FolderPickerSheet(
+                folders: folders,
+                selectedFolder: nil
+            ) { folder in
+                batchMoveSelectedItems(to: folder)
+            }
+        }
         .confirmationDialog(
             "Delete Score?",
             isPresented: $showingDeleteScoreConfirmation,
@@ -197,6 +272,54 @@ struct LibraryView: View {
         } message: { item in
             Text("Delete \"\(item.name)\" from the library? This also removes the score file from the app.")
         }
+        .alert("Rename Score", isPresented: $showingRenameScoreAlert, actions: {
+            TextField("Score Name", text: $textFieldValue)
+
+            Button("Save") {
+                renameScore()
+            }
+            .keyboardShortcut(.defaultAction)
+
+            Button("Cancel", role: .cancel) {
+                itemPendingRename = nil
+                resetFolderTextInput()
+            }
+        }, message: {
+            Text("Enter a new name for the score.")
+        })
+    }
+
+    private var detailHeaderRow: some View {
+        HStack {
+            if !showSidebar {
+                Button {
+                    withAnimation(Theme.Motion.smoothSpring) {
+                        showSidebar = true
+                    }
+                } label: {
+                    Image(systemName: "sidebar.left")
+                        .font(.system(size: 22, weight: .medium))
+                        .foregroundColor(Theme.Colors.gold)
+                }
+            }
+
+            Spacer()
+
+            Button {
+                withAnimation(Theme.AnimationTokens.standard) {
+                    isSelecting.toggle()
+                    if !isSelecting { selectedItems.removeAll() }
+                }
+            } label: {
+                Text(isSelecting ? "Done" : "Select")
+                    .font(Theme.title1())
+                    .foregroundColor(Theme.Colors.gold)
+            }
+        }
+        .frame(height: 44)
+        .padding(.horizontal, Theme.Spacing.lg)
+        .padding(.top, 7)
+        .padding(.bottom, 4)
     }
 
      private var emptyStateView: some View {
@@ -227,27 +350,87 @@ struct LibraryView: View {
             GridItem(.adaptive(minimum: 200, maximum: 280), spacing: Theme.Spacing.md)
         ]
 
-        return ScrollView {
-            LazyVGrid(columns: columns, spacing: Theme.Spacing.md) {
-                ForEach(items) { item in
-                    Button {
-                        selectedScoreItem = item
-                    } label: {
-                        PDFItemCard(item: item)
-                    }
-                    .buttonStyle(.plain)
-                    .contextMenu {
-                        Button("Move to…") {
-                            presentFolderPicker(for: item)
+        return VStack(spacing: 0) {
+            ScrollView {
+                LazyVGrid(columns: columns, spacing: Theme.Spacing.md) {
+                    ForEach(items) { item in
+                        Button {
+                            if isSelecting {
+                                toggleSelection(item)
+                            } else {
+                                selectedScoreItem = item
+                            }
+                        } label: {
+                            PDFItemCard(item: item, isSelected: isSelecting && selectedItems.contains(item.id))
                         }
+                        .buttonStyle(.plain)
+                        .contextMenu {
+                            if !isSelecting {
+                                Button("Rename") {
+                                    beginScoreRename(item)
+                                }
 
-                        Button("Delete", role: .destructive) {
-                            confirmScoreDeletion(item)
+                                Button("Move to…") {
+                                    presentFolderPicker(for: item)
+                                }
+
+                                Button("Delete", role: .destructive) {
+                                    confirmScoreDeletion(item)
+                                }
+                            }
                         }
                     }
                 }
+                .padding(Theme.Spacing.lg)
             }
-            .padding(Theme.Spacing.lg)
+
+            if isSelecting && !selectedItems.isEmpty {
+                selectionToolbar(items: items)
+            }
+        }
+    }
+
+    private func selectionToolbar(items: [LibraryItem]) -> some View {
+        HStack(spacing: Theme.Spacing.md) {
+            Button {
+                if selectedItems.count == items.count {
+                    selectedItems.removeAll()
+                } else {
+                    selectedItems = Set(items.map(\.id))
+                }
+            } label: {
+                Text(selectedItems.count == items.count ? "Deselect All" : "Select All")
+                    .font(Theme.title3())
+                    .foregroundColor(Theme.Colors.gold)
+            }
+
+            Spacer()
+
+            Text("\(selectedItems.count) selected")
+                .font(Theme.caption())
+                .foregroundColor(Theme.Colors.textSecondary)
+
+            Spacer()
+
+            Button {
+                showingBatchMoveSheet = true
+            } label: {
+                Label("Move to…", systemImage: "folder")
+                    .font(Theme.title3())
+                    .foregroundColor(Theme.Colors.gold)
+            }
+        }
+        .padding(.horizontal, Theme.Spacing.md)
+        .padding(.vertical, Theme.Spacing.sm)
+        .background(Theme.Colors.surface)
+        .overlay(alignment: .top) { SwissDivider() }
+    }
+
+    private func toggleSelection(_ item: LibraryItem) {
+        if selectedItems.contains(item.id) {
+            selectedItems.remove(item.id)
+        } else {
+            selectedItems.insert(item.id)
         }
     }
 
@@ -331,9 +514,31 @@ struct LibraryView: View {
         itemPendingMove = nil
     }
 
+    private func batchMoveSelectedItems(to folder: Folder?) {
+        for item in allItems where selectedItems.contains(item.id) {
+            item.folder = folder
+        }
+        selectedItems.removeAll()
+        isSelecting = false
+    }
+
     private func confirmScoreDeletion(_ item: LibraryItem) {
         itemPendingDeletion = item
         showingDeleteScoreConfirmation = true
+    }
+
+    private func beginScoreRename(_ item: LibraryItem) {
+        itemPendingRename = item
+        textFieldValue = item.name
+        showingRenameScoreAlert = true
+    }
+
+    private func renameScore() {
+        let name = trimmedTextFieldValue
+        guard !name.isEmpty, let item = itemPendingRename else { return }
+        item.name = name
+        itemPendingRename = nil
+        resetFolderTextInput()
     }
 
     private func deleteScore(_ item: LibraryItem) {
@@ -404,6 +609,8 @@ enum FolderSelection: Hashable {
 
 struct PDFItemCard: View {
     let item: LibraryItem
+    var isSelected: Bool = false
+    @State private var thumbnail: UIImage?
 
     var body: some View {
         VStack(alignment: .leading, spacing: Theme.Dimensions.innerSpacing) {
@@ -411,11 +618,27 @@ struct PDFItemCard: View {
                 RoundedRectangle(cornerRadius: Theme.Dimensions.cardRadius - 4, style: .continuous)
                     .fill(Theme.Colors.separator)
                     .aspectRatio(0.77, contentMode: .fit)
-
-                Text(item.name.prefix(1).uppercased())
-                    .font(Theme.display())
-                    .foregroundColor(Theme.Colors.textSecondary)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .overlay {
+                        if let thumbnail {
+                            Image(uiImage: thumbnail)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .clipShape(RoundedRectangle(cornerRadius: Theme.Dimensions.cardRadius - 4, style: .continuous))
+                        } else {
+                            Text(item.name.prefix(1).uppercased())
+                                .font(Theme.display())
+                                .foregroundColor(Theme.Colors.textSecondary)
+                        }
+                    }
+                    .overlay(alignment: .topTrailing) {
+                        if isSelected {
+                            Image(systemName: "checkmark.circle.fill")
+                                .font(.title2)
+                                .foregroundStyle(Theme.Colors.gold)
+                                .background(Circle().fill(Theme.Colors.surface).padding(2))
+                                .padding(10)
+                        }
+                    }
 
                 RoundedRectangle(cornerRadius: 1)
                     .fill(Theme.Colors.gold)
@@ -423,12 +646,15 @@ struct PDFItemCard: View {
                     .padding(.horizontal, 8)
                     .padding(.bottom, 8)
             }
+            .task(id: item.id) {
+                await loadThumbnail()
+            }
 
             Text(item.name)
                 .font(Theme.body())
                 .foregroundColor(Theme.Colors.textPrimary)
                 .lineLimit(2)
-                .frame(maxWidth: .infinity, alignment: .leading)
+                .frame(maxWidth: .infinity, minHeight: 38, alignment: .topLeading)
 
             Text("\(item.pageCount) pages")
                 .font(Theme.caption())
@@ -438,5 +664,25 @@ struct PDFItemCard: View {
         }
         .padding(Theme.Dimensions.cardPadding)
         .swissCard()
+        .overlay {
+            if isSelected {
+                RoundedRectangle(cornerRadius: Theme.Dimensions.cardRadius, style: .continuous)
+                    .strokeBorder(Theme.Colors.gold, lineWidth: 2.5)
+            }
+        }
+    }
+
+    private func loadThumbnail() async {
+        let url = item.fileURL
+        let image = await Task.detached(priority: .utility) {
+            PageImageRenderer.renderPageSync(
+                documentURL: url,
+                pageIndex: 0,
+                targetSize: CGSize(width: 280, height: 364)
+            )
+        }.value
+        if let image {
+            thumbnail = image
+        }
     }
 }
