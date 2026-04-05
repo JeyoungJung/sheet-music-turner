@@ -318,7 +318,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9GQ5DS22LS;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -328,7 +328,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.SheetMusicTurner;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jeyoungjung.sheetmusicturner;
 				PRODUCT_NAME = SheetMusicTurner;
 				SDKROOT = iphoneos;
 				SUPPORTS_MACCATALYST = NO;
@@ -346,14 +346,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = XY2YLU52MW;
+				DEVELOPMENT_TEAM = 9GQ5DS22LS;
 				INFOPLIST_FILE = SheetMusicTurner/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.SheetMusicTurner;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jeyoungjung.sheetmusicturner;
 				PRODUCT_NAME = SheetMusicTurner;
 				SDKROOT = iphoneos;
 				SUPPORTS_MACCATALYST = NO;
@@ -376,7 +376,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9GQ5DS22LS;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -388,7 +388,7 @@
 					"@executable_path/Frameworks",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.SheetMusicTurner;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jeyoungjung.sheetmusicturner;
 				PRODUCT_NAME = SheetMusicTurner;
 				SDKROOT = iphoneos;
 				SUPPORTS_MACCATALYST = NO;
@@ -405,14 +405,14 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = XY2YLU52MW;
+				DEVELOPMENT_TEAM = 9GQ5DS22LS;
 				INFOPLIST_FILE = SheetMusicTurner/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.SheetMusicTurner;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jeyoungjung.sheetmusicturner;
 				PRODUCT_NAME = SheetMusicTurner;
 				SDKROOT = iphoneos;
 				SUPPORTS_MACCATALYST = NO;
