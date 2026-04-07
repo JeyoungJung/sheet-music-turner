@@ -46,7 +46,7 @@ final class ImagePageView: UIView {
         }
     }
 
-    var activeColor: AnnotationColorValue = .black
+    var activeColor: AnnotationColorValue = AnnotationColorValue(red: 0, green: 0, blue: 0, alpha: 1)
     var activeThickness: CGFloat = 1
 
     override init(frame: CGRect) {

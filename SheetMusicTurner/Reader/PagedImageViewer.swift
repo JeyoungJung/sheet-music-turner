@@ -39,7 +39,7 @@ final class PagedImageViewer: UIViewController, UIScrollViewDelegate {
         }
     }
 
-    var activeColor: AnnotationColorValue = .black {
+    var activeColor: AnnotationColorValue = AnnotationColorValue(red: 0, green: 0, blue: 0, alpha: 1) {
         didSet {
             pageView.activeColor = activeColor
         }

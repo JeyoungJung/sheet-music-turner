@@ -55,7 +55,7 @@ enum AnnotationToolbarColor: String, CaseIterable, Identifiable {
     var colorValue: AnnotationColorValue {
         switch self {
         case .black:
-            return .black
+            return AnnotationColorValue(red: 0, green: 0, blue: 0, alpha: 1)
         case .red:
             return AnnotationColorValue(red: 1.0, green: 59.0 / 255.0, blue: 48.0 / 255.0, alpha: 1.0)
         case .blue:

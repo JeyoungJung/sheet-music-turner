@@ -91,7 +91,7 @@ final class CanvasManager: NSObject, PKCanvasViewDelegate {
     private var pendingSaveWorkItems: [Int: DispatchWorkItem] = [:]
     var isAnnotating = false
     private var activeTool: AnnotationTool = .pen
-    private var activeColor: AnnotationColorValue = .black
+    private var activeColor: AnnotationColorValue = AnnotationColorValue(red: 0, green: 0, blue: 0, alpha: 1)
     private var activeThickness: CGFloat = 1
     private let annotationStore = AnnotationStore()
     private var memoryWarningObserver: NSObjectProtocol?
