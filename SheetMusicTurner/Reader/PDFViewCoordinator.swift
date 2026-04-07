@@ -146,6 +146,7 @@ final class CanvasManager: NSObject, PKCanvasViewDelegate {
         let canvas = ManagedUndoCanvasView()
         canvas.backgroundColor = .clear
         canvas.isOpaque = false
+        canvas.overrideUserInterfaceStyle = .light
         canvas.externalUndoManager = undoManager
         canvas.activeTool = activeTool
 
