@@ -11,7 +11,7 @@ final class ImagePageView: UIView {
     let imageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFit
-        iv.backgroundColor = .white
+        iv.backgroundColor = .clear
         iv.clipsToBounds = true
         return iv
     }()
@@ -51,7 +51,7 @@ final class ImagePageView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .white
+        backgroundColor = .clear
         addSubview(imageView)
     }
 

@@ -86,7 +86,7 @@ final class PagedImageViewer: UIViewController, UIScrollViewDelegate {
 
     override func loadView() {
         let container = UIView()
-        container.backgroundColor = .white
+        container.backgroundColor = .clear
         container.clipsToBounds = false
         self.view = container
     }
