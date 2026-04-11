@@ -121,9 +121,11 @@ final class PagedImageViewer: UIViewController, UIScrollViewDelegate {
 
         let targetFrame: CGRect
         if isFullscreen {
-            let screenBounds = UIScreen.main.bounds
-            let originInView = view.convert(screenBounds.origin, from: nil)
-            targetFrame = CGRect(origin: originInView, size: screenBounds.size)
+            // Use the window bounds (not screen bounds) so fullscreen
+            // stays within the app's multitasking window, not the full display.
+            let windowBounds = view.window?.bounds ?? UIScreen.main.bounds
+            let originInView = view.convert(windowBounds.origin, from: view.window)
+            targetFrame = CGRect(origin: originInView, size: windowBounds.size)
         } else {
             targetFrame = view.bounds
         }
