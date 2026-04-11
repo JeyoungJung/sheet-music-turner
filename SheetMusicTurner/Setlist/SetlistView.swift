@@ -3,6 +3,8 @@ import SwiftData
 
 struct SetlistView: View {
 
+    let tabPicker: AnyView
+
     @Query(sort: \Setlist.dateCreated) private var setlists: [Setlist]
 
     @Environment(\.modelContext) private var modelContext
@@ -21,7 +23,6 @@ struct SetlistView: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
-                // Inline header row matching Library tab style
                 HStack {
                     Button {
                         // No sidebar to toggle on Setlists tab — placeholder for visual symmetry
@@ -54,6 +55,9 @@ struct SetlistView: View {
                 }
             }
             .background(Theme.Colors.canvas)
+            .overlay(alignment: .top) {
+                tabPicker
+            }
             .toolbar(.hidden, for: .navigationBar)
         }
         .tint(Theme.Colors.gold)

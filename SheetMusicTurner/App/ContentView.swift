@@ -5,19 +5,14 @@ struct ContentView: View {
     @State private var selectedTab: AppTab = .library
 
     var body: some View {
-        ZStack(alignment: .top) {
-            // Full-screen tab content — NO system TabView chrome
-            Group {
-                switch selectedTab {
-                case .library:
-                    LibraryView()
-                case .setlists:
-                    SetlistView()
-                }
+        let picker = AnyView(tabPicker)
+        Group {
+            switch selectedTab {
+            case .library:
+                LibraryView(tabPicker: picker)
+            case .setlists:
+                SetlistView(tabPicker: picker)
             }
-
-            // Floating tab picker at top center
-            tabPicker
         }
         .tint(Theme.Colors.gold)
     }

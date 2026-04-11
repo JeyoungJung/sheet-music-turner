@@ -4,6 +4,8 @@ import UniformTypeIdentifiers
 
 struct LibraryView: View {
 
+    let tabPicker: AnyView
+
     @Query(sort: \Folder.sortOrder) private var folders: [Folder]
     @Query(sort: \LibraryItem.dateAdded, order: .reverse) private var allItems: [LibraryItem]
 
@@ -48,8 +50,11 @@ struct LibraryView: View {
                    Divider()
                }
 
-               detailView
-                   .frame(maxWidth: .infinity)
+                detailView
+                    .frame(maxWidth: .infinity)
+                    .overlay(alignment: .top) {
+                        tabPicker
+                    }
            }
            .tint(Theme.Colors.gold)
            .fullScreenCover(item: $selectedScoreItem) { item in
