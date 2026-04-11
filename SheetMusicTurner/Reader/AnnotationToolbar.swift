@@ -82,16 +82,18 @@ struct AnnotationToolbar: View {
     private let thicknessOptions: [CGFloat] = [1, 3, 6]
 
     var body: some View {
-        HStack(spacing: Theme.Spacing.sm) {
-            Spacer(minLength: 0)
-            toolSection
-            sectionDivider
-            colorSection
-            sectionDivider
-            thicknessSection
-            Spacer(minLength: 0)
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: Theme.Spacing.sm) {
+                toolSection
+                sectionDivider
+                colorSection
+                sectionDivider
+                thicknessSection
+            }
+            .padding(.horizontal, Theme.Spacing.sm)
+            .frame(minWidth: 0, maxWidth: .infinity)
+            .frame(height: Self.height)
         }
-        .padding(.horizontal, Theme.Spacing.sm)
         .frame(maxWidth: .infinity)
         .frame(height: Self.height)
         .background(Theme.Colors.surface)

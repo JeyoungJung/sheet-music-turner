@@ -57,20 +57,21 @@ struct PDFReaderView: UIViewControllerRepresentable {
         coordinator.canvasUndoManager = undoManager
         coordinator.isAnnotating = isAnnotating
 
-        // Route taps
         viewer.onTapZone = onTapZone
 
-        // Sync fullscreen state
         if viewer.isFullscreen != isFullscreen {
             viewer.isFullscreen = isFullscreen
         }
 
-        // Sync annotation state
         if viewer.isAnnotating != isAnnotating {
             viewer.isAnnotating = isAnnotating
         }
 
-        // Only reload if document URL changed
+        let targetInset: CGFloat = isAnnotating ? AnnotationToolbar.height : 0
+        if viewer.annotationBottomInset != targetInset {
+            viewer.annotationBottomInset = targetInset
+        }
+
         if coordinator.loadedDocumentURL != documentURL {
             loadDocument(into: viewer)
         }

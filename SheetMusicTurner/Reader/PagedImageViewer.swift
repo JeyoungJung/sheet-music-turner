@@ -51,6 +51,15 @@ final class PagedImageViewer: UIViewController, UIScrollViewDelegate {
         }
     }
 
+    /// Extra bottom inset when annotation toolbar is visible, so the user can
+    /// scroll the page up to reach content behind the toolbar.
+    var annotationBottomInset: CGFloat = 0 {
+        didSet {
+            guard oldValue != annotationBottomInset else { return }
+            updateContentInset()
+        }
+    }
+
     /// Called with zone index: 0 = left, 1 = center, 2 = right.
     var onTapZone: ((Int) -> Void)?
 
@@ -70,6 +79,8 @@ final class PagedImageViewer: UIViewController, UIScrollViewDelegate {
     private let zoomScrollView = UIScrollView()
     private let pageView = ImagePageView()
     private var tapRecognizer: UITapGestureRecognizer?
+    private var lastLayoutSize: CGSize = .zero
+    private var sceneActivationObserver: NSObjectProtocol?
 
     // MARK: - Init
 
@@ -80,6 +91,12 @@ final class PagedImageViewer: UIViewController, UIScrollViewDelegate {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) not implemented")
+    }
+
+    deinit {
+        if let sceneActivationObserver {
+            NotificationCenter.default.removeObserver(sceneActivationObserver)
+        }
     }
 
     // MARK: - Lifecycle
@@ -114,6 +131,14 @@ final class PagedImageViewer: UIViewController, UIScrollViewDelegate {
         tapRecognizer = tap
 
         updateScrollBehavior()
+
+        sceneActivationObserver = NotificationCenter.default.addObserver(
+            forName: UIScene.didActivateNotification,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            self?.resetZoomToIdentity()
+        }
     }
 
     override func viewDidLayoutSubviews() {
@@ -121,8 +146,6 @@ final class PagedImageViewer: UIViewController, UIScrollViewDelegate {
 
         let targetFrame: CGRect
         if isFullscreen {
-            // Use the window bounds (not screen bounds) so fullscreen
-            // stays within the app's multitasking window, not the full display.
             let windowBounds = view.window?.bounds ?? UIScreen.main.bounds
             let originInView = view.convert(windowBounds.origin, from: view.window)
             targetFrame = CGRect(origin: originInView, size: windowBounds.size)
@@ -130,15 +153,18 @@ final class PagedImageViewer: UIViewController, UIScrollViewDelegate {
             targetFrame = view.bounds
         }
 
+        let sizeChanged = targetFrame.size != lastLayoutSize
+        lastLayoutSize = targetFrame.size
+
         zoomScrollView.frame = targetFrame
         pageView.frame = CGRect(origin: .zero, size: targetFrame.size)
         zoomScrollView.contentSize = targetFrame.size
 
-        // Reset zoom when layout changes
-        if !isAnnotating {
+        if sizeChanged {
             zoomScrollView.zoomScale = 1
+            zoomScrollView.contentOffset = .zero
             zoomScrollView.minimumZoomScale = 1
-            zoomScrollView.maximumZoomScale = 1
+            zoomScrollView.maximumZoomScale = isAnnotating ? 4 : 1
         }
     }
 
@@ -253,6 +279,16 @@ final class PagedImageViewer: UIViewController, UIScrollViewDelegate {
         pageView.detachCanvas()
     }
 
+    private func resetZoomToIdentity() {
+        lastLayoutSize = .zero
+        zoomScrollView.zoomScale = 1
+        zoomScrollView.contentOffset = .zero
+        zoomScrollView.minimumZoomScale = 1
+        zoomScrollView.maximumZoomScale = isAnnotating ? 4 : 1
+        view.setNeedsLayout()
+        view.layoutIfNeeded()
+    }
+
     private func pageViewSize() -> CGSize {
         // Always render at screen bounds so the image (and canvas coordinate space)
         // stays consistent regardless of fullscreen vs normal mode.
@@ -273,8 +309,11 @@ final class PagedImageViewer: UIViewController, UIScrollViewDelegate {
     }
 
     private func updateScrollBehavior() {
-        // Annotation mode: enable zoom and 2-finger pan
-        // Reading mode: no zoom, no scroll
+        zoomScrollView.zoomScale = 1
+        zoomScrollView.contentOffset = .zero
+        pageView.frame = CGRect(origin: .zero, size: zoomScrollView.bounds.size)
+        zoomScrollView.contentSize = zoomScrollView.bounds.size
+
         if isAnnotating {
             zoomScrollView.minimumZoomScale = 1
             zoomScrollView.maximumZoomScale = 4
@@ -289,17 +328,22 @@ final class PagedImageViewer: UIViewController, UIScrollViewDelegate {
         } else {
             zoomScrollView.minimumZoomScale = 1
             zoomScrollView.maximumZoomScale = 1
-            zoomScrollView.zoomScale = 1
             zoomScrollView.isScrollEnabled = false
             zoomScrollView.bounces = false
         }
 
-        // Disable double-tap zoom gesture
+        updateContentInset()
+
         for recognizer in zoomScrollView.gestureRecognizers ?? [] {
             if let tapRecognizer = recognizer as? UITapGestureRecognizer,
                tapRecognizer.numberOfTapsRequired > 1 {
                 tapRecognizer.isEnabled = false
             }
         }
+    }
+
+    private func updateContentInset() {
+        let bottomInset = isAnnotating ? annotationBottomInset : 0
+        zoomScrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: bottomInset, right: 0)
     }
 }

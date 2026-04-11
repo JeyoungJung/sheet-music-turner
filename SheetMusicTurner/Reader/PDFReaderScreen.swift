@@ -72,18 +72,22 @@ struct PDFReaderScreen: View {
 
                 configuredPDFReaderView
                     .ignoresSafeArea()
-
+            }
+            .ignoresSafeArea()
+            .overlay {
                 if isFullscreen {
                     EmptyView()
                 } else {
-                    annotationToolbarOverlay
+                    ZStack {
+                        annotationToolbarOverlay
 
-                    annotationToggle
+                        annotationToggle
 
-                    pieceNameBar
+                        pieceNameBar
+                    }
+                    .ignoresSafeArea(edges: .bottom)
                 }
             }
-            .ignoresSafeArea()
             .overlay(alignment: .bottom) {
                 if !isFullscreen {
                     pageIndicator(isWide: isWideLayout)
@@ -117,12 +121,6 @@ struct PDFReaderScreen: View {
             }
         }
         .onChange(of: isAnnotating) {
-            coordinator.isAnnotating = isAnnotating
-            coordinator.canvasUndoManager = undoManager
-            coordinator.setActiveTool(activeAnnotationTool)
-            coordinator.setColor(activeAnnotationColor.colorValue)
-            coordinator.setThickness(activeAnnotationThickness)
-
             if !isAnnotating {
                 coordinator.saveAnnotationsNow()
                 showAnnotationControls = false
@@ -187,40 +185,20 @@ struct PDFReaderScreen: View {
                 }
             }
         )
-        .padding(.bottom, isAnnotating ? AnnotationToolbar.height : 0))
+        )
     }
 
     private func pageIndicator(isWide: Bool) -> some View {
-        VStack(spacing: 0) {
-            Rectangle()
-                .fill(Theme.Colors.separator.opacity(0.5))
-                .frame(height: Theme.Layout.hairline)
-            HStack(spacing: 0) {
-                Spacer()
-                if visibleTotalPages > 0 {
-                    Text(pageIndicatorDisplayText(isWide: isWide))
-                        .font(Theme.number())
-                        .foregroundColor(Theme.Colors.textPrimary)
-                        .tracking(0.5)
-                        .padding(.trailing, Theme.Spacing.md)
-                }
+        GeometryReader { geometry in
+            ZStack(alignment: .leading) {
+                Rectangle()
+                    .fill(Theme.Colors.separator.opacity(0.3))
+                Rectangle()
+                    .fill(Theme.Colors.gold)
+                    .frame(width: geometry.size.width * pageIndicatorProgress)
             }
-            .frame(maxWidth: .infinity)
-            .frame(height: 36)
-            .background(Theme.Colors.surface)
-            GeometryReader { geometry in
-                ZStack(alignment: .leading) {
-                    Rectangle()
-                        .fill(Theme.Colors.separator.opacity(0.3))
-                    Rectangle()
-                        .fill(Theme.Colors.gold)
-                        .frame(width: geometry.size.width * pageIndicatorProgress)
-                }
-            }
-            .frame(height: 2)
         }
-        .background(Theme.Colors.surface)
-        .padding(.bottom, isAnnotating ? AnnotationToolbar.height : 0)
+        .frame(height: 2)
     }
 
     private var pageIndicatorProgress: CGFloat {
@@ -232,48 +210,12 @@ struct PDFReaderScreen: View {
         max(totalPages, coordinator.totalPageCount)
     }
 
-    private func pageIndicatorDisplayText(isWide: Bool) -> String {
-        let pageLabel = basePageIndicatorDisplayText(isWide: isWide)
-
-        guard let setlistPlayer else {
-            return pageLabel
-        }
-
-        return "Piece \(currentPieceNumber(for: setlistPlayer))/\(setlistPlayer.totalEntries) — \(pageLabel)"
-    }
-
-    private func basePageIndicatorDisplayText(isWide: Bool) -> String {
-        let pageNumber = currentPage + 1
-
-        guard isWide, visibleTotalPages > 1 else {
-            return "\(pageNumber) / \(visibleTotalPages)"
-        }
-
-        if pageNumber == 1 {
-            return "1 / \(visibleTotalPages)"
-        }
-
-        let spreadStart = pageNumber.isMultiple(of: 2) ? pageNumber : pageNumber - 1
-        let spreadEnd = min(spreadStart + 1, visibleTotalPages)
-
-        if spreadStart == spreadEnd {
-            return "\(spreadStart) / \(visibleTotalPages)"
-        }
-
-        return "\(spreadStart)-\(spreadEnd) / \(visibleTotalPages)"
-    }
-
     private func updateLayout(for size: CGSize) {
         isWideLayout = size.width > size.height
     }
 
     private func configureCoordinator() {
         coordinator.configureAnnotationPersistence(modelContext: modelContext, libraryItemID: currentItem.id)
-        coordinator.canvasUndoManager = undoManager
-        coordinator.isAnnotating = isAnnotating
-        coordinator.setActiveTool(activeAnnotationTool)
-        coordinator.setColor(activeAnnotationColor.colorValue)
-        coordinator.setThickness(activeAnnotationThickness)
     }
 
     private var isShowingReaderAlert: Binding<Bool> {
